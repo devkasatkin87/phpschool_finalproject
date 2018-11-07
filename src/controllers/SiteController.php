@@ -1,13 +1,22 @@
 <?php
 
-//namespace src\controllers;
+use src\components\Db;
 
 class SiteController {
     
     public function actionIndex() {
         
-        echo "<h3>Main Page from rout: scr\controllers\SiteController\actionIndex</h3>";
-        echo "<p>Maybe include some interesting articles</p>";
+        echo "Connection to DB:".PHP_EOL;
+        
+        try{
+            
+            $db = Db::connection();
+            echo 'connection done!';
+            
+        } catch (PDOException $error) {
+            
+            echo $error->getMessage();
+        }
         
         return true;
     }

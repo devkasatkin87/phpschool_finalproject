@@ -7,7 +7,9 @@
             "email": "devkasatkin87@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "fzaninotto/faker": "^1.8"
+    },
     
     "autoload": {
         "psr-4": {
