@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6aadb7b631a6a0dfc6fad8acf2012ae1",
+    "content-hash": "bdd0925294f6d90cf2e797f5aa327dc4",
     "packages": [
         {
             "name": "fzaninotto/faker",
@@ -55,6 +55,49 @@
                 "fixtures"
             ],
             "time": "2018-07-12T10:23:15+00:00"
+        },
+        {
+            "name": "softwarepunt/php-activerecord",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SoftwarePunt/php-activerecord.git",
+                "reference": "1f7bcfbc56576e88b9daa37f6452bed59377bc83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SoftwarePunt/php-activerecord/zipball/1f7bcfbc56576e88b9daa37f6452bed59377bc83",
+                "reference": "1f7bcfbc56576e88b9daa37f6452bed59377bc83",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "pear/log": "~1.12",
+                "pear/pear_exception": "1.0-beta1",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "maximebf/debugbar": "This package can intergrate into the PHP Debugbar"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "ActiveRecord.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "php-activerecord is an open source ORM library based on the ActiveRecord pattern.",
+            "homepage": "http://www.phpactiverecord.org/",
+            "keywords": [
+                "activerecord",
+                "orm"
+            ],
+            "time": "2015-07-14T11:57:12+00:00"
         }
     ],
     "packages-dev": [],
