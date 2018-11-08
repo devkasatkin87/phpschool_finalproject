@@ -12,11 +12,24 @@
         <div class="content content_articles col-md-3">
         </div>
         <div class="content content_authors col-md-3">
+            <div class="row"><h3>Tags Cloud Authors</h3></div>
+            <div class='row'>
+                <?php foreach ($authorsList as $author): ?>
+                    <ul>
+                        <li><p><?= $author['name']; ?></p></li>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="content content_topics col-md-3">
-            <?php foreach ($topicsList as $field => $value):?>
-            <p><?=$field;?><i><?=$value;?></i></p>
-            <?php endforeach;?>
+            <div class="row"><h3>Tags Cloud Topics</h3></div>
+            <div class='row'>
+                <?php foreach ($topicsList as $topic): ?>
+                    <ul>
+                        <li><p><?= $topic['title']; ?></p></li>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="content content_datePubleshed col-md-3">
         </div>
