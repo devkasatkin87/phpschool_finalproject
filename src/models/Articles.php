@@ -14,11 +14,4 @@ class Articles extends Model
     public $img;
     public $views;
     
-    public function setAttributes($obj) {
-    
-        $attr = $obj->attributes();
-        
-        $this->id = $attr['id'];        
-    }
-    
 }

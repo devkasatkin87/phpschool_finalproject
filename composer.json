@@ -9,7 +9,7 @@
     ],
     "require": {
         "fzaninotto/faker": "^1.8",
-        "softwarepunt/php-activerecord": "^1.2"
+        "php-activerecord/php-activerecord": "^1.2"
     },
     
     "autoload": {

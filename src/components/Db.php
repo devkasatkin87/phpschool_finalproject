@@ -1,27 +1,31 @@
 <?php
 
 namespace src\components;
+
 use PDO;
+use ActiveRecord\Config;
+
 class Db 
 {
     /**
      * Return handle connection to DB
-     * @return PDO
+     * @return bool
      */
     public static function connection()
-    {
-        $pdo = null;
+    {   
+        ///Add file with params for DB
         
-        //Add file with params for DB
-        $paramsPath = dirname(__DIR__).'/config/db_param.php';
-        $params = require_once ($paramsPath);
+        Config::initialize(function($cfg) {
+            $paramsPath = dirname(__DIR__).'/config/db_param.php';
+            $params = require_once ($paramsPath);   
+            $cfg->set_model_directory(__DIR__.'/../models');
+            $cfg->set_connections(
+                [
+                    'development' => "mysql://{$params['user']}:{$params['password']}@{$params['host']}/{$params['dbname']}",
+                ]
+            );
+        });
         
-        $dsn = "mysql:host={$params['host']};port={$params['port']};dbname={$params['dbname']};charset={$params['charset']}";
-        
-        $options = $params['options'];
-        
-        $pdo = new PDO($dsn, $params['user'], $params['password'], $options);
-       
-        return $pdo;
+        return true;
     }
 }
