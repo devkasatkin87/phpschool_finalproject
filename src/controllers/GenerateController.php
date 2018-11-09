@@ -10,16 +10,16 @@ class GenerateController
     {
         try{
             
-            $db = Db::connection();
+            $db = new PDO('mysql:host=mysql;dbname=myproject', 'dbuser', '123456');
             
         } catch (PDOException $ex) {
             $ex->getMessage();
         }
         
         $faker = Factory::create();
-
-        for ($i = 0; $i < 10; $i++) {
-            //$resultDbTopics = $this->setDataToDb($db, $faker);
+        
+        for ($i = 0; $i < 2; $i++) {
+            $resultDbTopics = $this->setDataToDb($db, $faker);
         }
         
         echo "The Database has been generating!";
@@ -33,21 +33,18 @@ class GenerateController
         
         if (is_object($db)){
             
-            $sql = ("INSERT INTO articles (title, date_published, content, img, views) VALUES (:title, :date, :content, :img, :views)");
-
-            for ($i = 0; $i < 1000; $i++) {
+            $sql = ("INSERT INTO authors (first_name, second_name) VALUES (:first, :second)");
+            
+            for ($i = 0; $i < 17; $i++) {
 
                 $stm = $db->prepare($sql);
-                $title = $faker->sentence;
-                $date = $faker->date('Y-m-d');
-                $content = $faker->text;
-                $img = $faker->imageUrl();
-                $views = 1;
-                $stm->bindParam(':title', $title);
-                $stm->bindParam(':date', $date);
-                $stm->bindParam(':content', $content);
-                $stm->bindParam(':img', $img);
-                $stm->bindParam(':views', $views);
+                
+                $first = $faker->firstName;
+                $second = $faker->lastName;;
+
+                $stm->bindParam(':first', $first);
+                $stm->bindParam(':second', $second);
+
                 $stm->execute();
             }
             return true;

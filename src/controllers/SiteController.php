@@ -1,9 +1,9 @@
 <?php
 
-use ActiveRecord\Config;
 use src\components\Db;
-use src\models\Topics;
-use \src\models\Authors;
+use src\models\Authors;
+use src\components\pagination\PaginationControl;
+use src\components\pagination\PaginationEntity;
 
 class SiteController {
     
@@ -11,25 +11,15 @@ class SiteController {
         
         Db::connection();
         
-        $topicsList = [];
-        $authorList = [];
+        $authorsList = [];
         
-        $modelTopics = new Topics();
-        
-        $topicsObj = $modelTopics::find('all');
-        
-        foreach ($topicsObj as $topics){
-            $topicsList[] = $topics->attributes();
-        }
-        
-        //var_dump($topicsList);die;
         $modelAuthors = new Authors();
         
-        $authorsObj = $modelAuthors::find('all');
+        $authorsList = $modelAuthors->getAllAuthorsSortByName();
         
-        foreach ($authorsObj as $author){
-            $authorsList[] = $author->attributes();
-        }
+        $total = $modelAuthors->getTotalAmountAuthors();
+        
+        $pagination = new PaginationControl(new PaginationEntity($total, 1, Authors::SHOW_BY_DEFAULT, 'page-'));
         
         require_once ROOT.'/src/views/site/index.php';
         
