@@ -18,9 +18,11 @@ class GenerateController
         
         $faker = Factory::create();
         
-        for ($i = 0; $i < 2; $i++) {
-            $resultDbTopics = $this->setDataToDb($db, $faker);
-        }
+//        for ($i = 0; $i < 2; $i++) {
+//            $resultDbTopics = $this->setDataToDb($db, $faker);
+//        }
+        
+        //$this->generateTableArticlesToTopics($db);
         
         echo "The Database has been generating!";
         
@@ -52,9 +54,27 @@ class GenerateController
         return false;
     }
     
-    private function generateTableArticlestoTopics ()
+    private function generateTableArticlesToTopics ($db)
     {
-        
+        if (is_object($db)){
+            
+            $sqlGetId = "SELECT id FROM articles";
+            
+            $stmt = $db->query($sqlGetId);
+            //Установка fetch mode
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $ids = $stmt->fetchAll();
+
+            $sqlSetId = "INSERT INTO articlesToTopics (article_id, topic_id) VALUES (:article, :topic)";
+
+            foreach ($ids as $id){
+                $topic = mt_rand(1, 36);
+                $stm = $db->prepare($sqlSetId);
+                $stm->bindParam(':article', $id['id']);
+                $stm->bindParam(':topic', $topic);                
+                $stm->execute();
+            }
+        }
     }        
     
 }
