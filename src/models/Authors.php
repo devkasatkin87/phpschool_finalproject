@@ -6,31 +6,25 @@ use ActiveRecord\Model;
 
 class Authors extends Model{
     
-     const SHOW_BY_DEFAULT = 10;
+    const SHOW_AUTHORS_BY_DEFAULT = 10;
     
     /**
      * 
-     * 
+     * @param int $offset
      * @return array 
      *      */
-     public function getAllAuthorsSortByName() : array
+     public function getLimitAuthorsSortByName(int $offset) : array
     {
         $modelObj = [];
         $list = [];
         
-            $modelObjs = self::find('all', ['order' => 'second_name asc']);
+            $modelObjs = self::find('all', ['limit' => self::SHOW_AUTHORS_BY_DEFAULT, 'order' => 'second_name asc', 'offset' => $offset]);
         
             foreach ($modelObjs as $modelObj) {
                 $list[] = $modelObj->attributes();
             }
             
             return $list;
-    }
-    
-    public function getTotalAmountAuthors()
-    {
-        return count($this->getAllAuthorsSortByName());
-      
     }
     
 }

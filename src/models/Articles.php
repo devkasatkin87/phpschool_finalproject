@@ -6,12 +6,24 @@ use ActiveRecord\Model;
 
 class Articles extends Model
 {
+    const SHOW_DATES_BY_DEFAULT = 10;
     
-    public $id;
-    public $title;
-    public $date_published;
-    public $content;
-    public $img;
-    public $views;
-    
+    /**
+     * 
+     * @param int $offset
+     * @return array 
+     */
+    public function getLimitDates(int $offset) : array
+    {
+        $modelObj = [];
+        $list = [];
+
+        $modelObjs = self::find('all', ['limit' => self::SHOW_DATES_BY_DEFAULT, 'order' => 'date_published desc', 'offset' => $offset]);
+
+        foreach ($modelObjs as $modelObj) {
+            $list[] = $modelObj->attributes();
+        }
+
+        return $list;
+    }
 }

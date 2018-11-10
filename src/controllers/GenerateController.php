@@ -52,4 +52,9 @@ class GenerateController
         return false;
     }
     
+    private function generateTableArticlestoTopics ()
+    {
+        
+    }        
+    
 }

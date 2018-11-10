@@ -2,7 +2,6 @@
 
 namespace src\components;
 
-use PDO;
 use ActiveRecord\Config;
 
 class Db 

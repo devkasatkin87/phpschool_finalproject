@@ -2,8 +2,7 @@
 
 use src\components\Db;
 use src\models\Authors;
-use src\components\pagination\PaginationControl;
-use src\components\pagination\PaginationEntity;
+use src\models\Articles;
 
 class SiteController {
     
@@ -12,14 +11,13 @@ class SiteController {
         Db::connection();
         
         $authorsList = [];
+        $articlesList = [];
         
         $modelAuthors = new Authors();
+        $modelArticles = new Articles();
         
-        $authorsList = $modelAuthors->getAllAuthorsSortByName();
-        
-        $total = $modelAuthors->getTotalAmountAuthors();
-        
-        $pagination = new PaginationControl(new PaginationEntity($total, 1, Authors::SHOW_BY_DEFAULT, 'page-'));
+        $authorsList = $modelAuthors->getLimitAuthorsSortByName(0);
+        $articlesList = $modelArticles->getLimitDates(0);
         
         require_once ROOT.'/src/views/site/index.php';
         
