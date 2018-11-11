@@ -35,13 +35,24 @@ class Articles extends Model
         $list = $this->parseArrayOfDbObj($modelObjs);
         return $list;
     }
-
+    
+    /**
+     * 
+     * @param int $id
+     * @return Object Articles
+     */
+    public function getArticleById(int $id) : Articles
+    {
+        $articleObj = self::find([$id]);
+        
+        return $articleObj;
+    }
 
     /**
      * Service method which parse array of objects
      * @param array $objs Array of objects
      * @return array 
-     *      */
+     */
     private function parseArrayOfDbObj(array $objs) : array
     {
         foreach ($objs as $obj) {

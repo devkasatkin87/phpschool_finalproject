@@ -30,4 +30,17 @@ class SiteController {
         return true;
     }
     
+    public function actionArticle($id) 
+    {
+        Db::connection();
+        
+        $model = new Articles();
+        $article = $model->getArticleById($id);
+        $article = $article->attributes();
+        
+        require_once ROOT.'/src/views/site/article.php';
+        
+        return true;
+    }
+    
 }

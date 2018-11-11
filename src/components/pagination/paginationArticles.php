@@ -33,6 +33,6 @@ function getAdditionalArticles(Articles $model, int $offset) : void
 
     foreach ($articlesList as $article){
         $offset++;
-        echo "<li>{$article['title']}</li>";
+        echo "<li><a href=\"/article/{$article['id']}\">{$article['title']}</a></li>";
     }
 }

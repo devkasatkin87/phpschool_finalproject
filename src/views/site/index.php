@@ -28,7 +28,7 @@
                 <ul id="articles">
                     <?php foreach ($articlesList as $article): ?>
                             <li>
-                                <?= $article['title'];?>
+                                <a href="/article/<?=$article['id']?>"><?= $article['title'];?></a>
                             </li>
                     <?php endforeach; ?>
                 </ul>
