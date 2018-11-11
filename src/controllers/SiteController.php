@@ -4,6 +4,8 @@ use src\components\Db;
 use src\models\Authors;
 use src\models\Articles;
 use src\models\Topics;
+use src\models\ArticlesToTopics;
+use src\models\ArticlesToAuthors;
 
 class SiteController {
     
@@ -34,9 +36,20 @@ class SiteController {
     {
         Db::connection();
         
-        $model = new Articles();
-        $article = $model->getArticleById($id);
+        $modelArticles = new Articles();
+        $modelTopics = new Topics();
+        $modelArticlesToTopic = new ArticlesToTopics();
+        $modelAuthors = new Authors();
+        $modelArticlesToAuthors = new ArticlesToAuthors();
+        
+        $article = $modelArticles->getArticleById($id);
         $article = $article->attributes();
+        
+        $topicId = $modelArticlesToTopic->getTopicIdByArticleId($id);
+        $topic = $modelTopics->getTopicTitleById($topicId);
+        
+        $authorId = $modelArticlesToAuthors->getAuthorIdByArticleId($id);
+        $author = $modelAuthors->getAuthorNameById($authorId);
         
         require_once ROOT.'/src/views/site/article.php';
         

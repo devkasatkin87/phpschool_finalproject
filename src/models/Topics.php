@@ -29,4 +29,16 @@ class Topics extends Model
 
         return $list;
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return string 
+     *      */
+    public function getTopicTitleById(int $id) : string
+    {
+        $topic = self::find('all', ['id' => $id]);
+        $topic = $topic[0]->attributes();
+        return $topic['title'];
+    }
 }

@@ -26,6 +26,8 @@ class GenerateController
 //        
 //        $this->updateTableArtirclesToTopics($db);
         
+//        $this->generateTableArticlesToAuthors($db);
+        
         echo "The Database has been generating!";
         
         return true;
@@ -67,13 +69,47 @@ class GenerateController
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $ids = $stmt->fetchAll();
 
-            $sqlSetId = "INSERT INTO articlesToTopics (article_id, topic_id) VALUES (:article, :topic)";
+            $sqlSetId = "INSERT INTO articles_to_topics (article_id, topic_id) VALUES (:article, :topic)";
 
             foreach ($ids as $id){
                 $topic = mt_rand(1, 36);
                 $stm = $db->prepare($sqlSetId);
                 $stm->bindParam(':article', $id['id']);
                 $stm->bindParam(':topic', $topic);                
+                $stm->execute();
+            }
+        }
+    }
+    
+        private function generateTableArticlesToAuthors ($db)
+    {
+        if (is_object($db)){
+            
+            $sqlGetId = "SELECT id FROM articles";
+            
+            $stmt = $db->query($sqlGetId);
+            //Установка fetch mode
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $ids = $stmt->fetchAll();
+            
+//            var_dump($ids);die;
+
+            $sqlSetId = "INSERT INTO articles_to_authors (article_id, author_id) VALUES (:article, :author)";
+
+//            $author = mt_rand(1, 69);
+//            var_dump($author);
+//            $stm = $db->prepare($sqlSetId);
+//            var_dump($stm);
+//            $id = 3;
+//            $stm->bindParam(':article', $id);
+//            $stm->bindParam(':author', $author);
+//            $stm->execute();
+
+            foreach ($ids as $id){
+                $author = mt_rand(1, 69);
+                $stm = $db->prepare($sqlSetId);
+                $stm->bindParam(':article', $id['id']);
+                $stm->bindParam(':author', $author);                
                 $stm->execute();
             }
         }

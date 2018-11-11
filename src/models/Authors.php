@@ -27,4 +27,17 @@ class Authors extends Model{
             return $list;
     }
     
+    /**
+     * 
+     * @param int $id
+     * @return string 
+     */
+    public function getAuthorNameById(int $id) : string
+    {
+        $object = self::find('all', ['id' => $id]);
+        $attributes = $object[0]->attributes();
+        $name = "{$attributes['first_name']} {$attributes['second_name']}";
+        return $name;
+    }
+    
 }
