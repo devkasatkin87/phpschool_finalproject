@@ -22,7 +22,9 @@ class GenerateController
 //            $resultDbTopics = $this->setDataToDb($db, $faker);
 //        }
         
-        //$this->generateTableArticlesToTopics($db);
+//        $this->generateTableArticlesToTopics($db);
+//        
+//        $this->updateTableArtirclesToTopics($db);
         
         echo "The Database has been generating!";
         
@@ -75,6 +77,28 @@ class GenerateController
                 $stm->execute();
             }
         }
-    }        
+    }
+    
+    public function updateTableArtirclesToTopics ($db) 
+    {
+        if (is_object($db)){
+            
+            $sqlGetcountArticles = "SELECT topic_id, COUNT(article_id) FROM articlesToTopics GROUP BY topic_id";
+            
+            $stmt = $db->query($sqlGetcountArticles);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $countArticles = $stmt->fetchAll();
+            
+            $sqlUpdateTopicsTable = "UPDATE topics SET articles_count = :count WHERE id = :id ";
+            
+            foreach ($countArticles as $countArticle) {
+                $stmt = $db->prepare($sqlUpdateTopicsTable);
+                $stmt->bindParam(':count', $countArticle['COUNT(article_id)']);
+                $stmt->bindParam(':id', $countArticle['topic_id']);
+                $stmt->execute();
+            }
+            
+        }
+    }
     
 }

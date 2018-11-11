@@ -1,8 +1,10 @@
 <?php require_once ROOT.'/src/views/layouts/header.php'; ?>
 <?php 
 /**  
- * @param $authorsList src\models\Authors; 
- * @param $articlesList src\models\Articles; 
+ * @param array $authorsList src\models\Authors; 
+ * @param array $articlesDateList src\models\Articles;
+ * @param array $articlesList src\models\Articles;
+ * @param array $topicsList src\models\Articles; 
  */ ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="paginationAuthors.js"></script>
@@ -20,9 +22,20 @@
     <div class="row">
         <div class="content content_articles col-md-3">
             <div class="row">
-                <h3>Catalog of articles</h3>
+                <h3 class="text-center">Articles</h3>
             </div>
-            <div class="row"></div>
+            <div class="row">
+                <ul id="articles">
+                    <?php foreach ($articlesList as $article): ?>
+                            <li>
+                                <?= $article['title'];?>
+                            </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="row">
+                <div id="loadNextArticles" type="button" class="btn btn-info">Show next articles</div>
+            </div>
         </div>
         <div class="content content_authors col-md-3">
             <div class="row"><h3 class="text-center">Authors</h3></div>
@@ -30,7 +43,7 @@
                 <ul  id="authors">
                     <?php foreach ($authorsList as $author): ?>
                             <li>
-                                    <?= $author['second_name'].' '.$author['first_name'];?>
+                                <?= $author['second_name'].' '.$author['first_name'];?>
                             </li>
                     <?php endforeach; ?>
                 </ul>
@@ -40,8 +53,18 @@
             </div>
         </div>
         <div class="content content_topics col-md-3">
-            <div class="row"><h3>Topics</h3></div>
+            <div class="row"><h3 class="text-center">Topics</h3></div>
             <div class='row'>
+                <ul  id="topics">
+                    <?php foreach ($topicsList as $topic): ?>
+                        <li>
+                            <?= $topic['title'] . ' ' . $topic['articles_count']; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="row">
+                <div id="loadNextTopics" type="button" class="btn btn-info">Show next topics</div>
             </div>
         </div>
         <div class="content content_datePubleshed col-md-3">
@@ -50,7 +73,7 @@
             </div>
             <div class="row">
                 <ul  id="dates">
-                    <?php foreach ($articlesList as $article): ?>
+                    <?php foreach ($articlesDateList as $article): ?>
                         <li>
                             <?= $article['date_published']; ?>
                         </li>
