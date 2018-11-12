@@ -3,7 +3,7 @@
 namespace src\models;
 
 use ActiveRecord\Model;
-use ActiveRecord\Config;
+use SplQueue;
 
 class Topics extends Model
 {       

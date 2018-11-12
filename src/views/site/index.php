@@ -25,13 +25,13 @@
                 <h3 class="text-center">Articles</h3>
             </div>
             <div class="row">
-                <ul id="articles">
+                <ol id="articles">
                     <?php foreach ($articlesList as $article): ?>
                             <li>
                                 <a href="/article/<?=$article['id']?>"><?= $article['title'];?></a>
                             </li>
                     <?php endforeach; ?>
-                </ul>
+                </ol>
             </div>
             <div class="row">
                 <div id="loadNextArticles" type="button" class="btn btn-info">Show next articles</div>
@@ -40,13 +40,13 @@
         <div class="content content_authors col-md-3">
             <div class="row"><h3 class="text-center">Authors</h3></div>
             <div class='row'>
-                <ul  id="authors">
+                <ol  id="authors">
                     <?php foreach ($authorsList as $author): ?>
                             <li>
                                 <?= $author['second_name'].' '.$author['first_name'];?>
                             </li>
                     <?php endforeach; ?>
-                </ul>
+                </ol>
             </div>
             <div class="row">
                 <div id="loadNextAuthors" type="button" class="btn btn-info">Show next authors</div>
@@ -55,13 +55,13 @@
         <div class="content content_topics col-md-3">
             <div class="row"><h3 class="text-center">Topics</h3></div>
             <div class='row'>
-                <ul  id="topics">
+                <ol  id="topics">
                     <?php foreach ($topicsList as $topic): ?>
                         <li>
                             <?= $topic['title'] . ' ' . $topic['articles_count']; ?>
                         </li>
                     <?php endforeach; ?>
-                </ul>
+                </ol>
             </div>
             <div class="row">
                 <div id="loadNextTopics" type="button" class="btn btn-info">Show next topics</div>
@@ -72,13 +72,13 @@
                 <h3>Date of publication</h3>
             </div>
             <div class="row">
-                <ul  id="dates">
+                <ol  id="dates">
                     <?php foreach ($articlesDateList as $article): ?>
                         <li>
                             <?= $article['date_published']; ?>
                         </li>
                     <?php endforeach; ?>
-                </ul>    
+                </ol>    
             </div>
             <div class="row">
                 <div id="loadNextDates" type="button" class="btn btn-info">Show next dates</div>

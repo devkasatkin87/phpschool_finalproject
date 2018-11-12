@@ -10,7 +10,7 @@ require_once dirname(__DIR__,3).'/vendor/autoload.php';
 use src\components\Db;
 use src\models\Articles;
 
-$offset = $_POST['num'];
+$offset = $_POST['numArticles'];
 
 if (is_numeric($offset)){
     $db = Db::connection();

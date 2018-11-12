@@ -7,7 +7,8 @@ use src\models\Topics;
 use src\models\ArticlesToTopics;
 use src\models\ArticlesToAuthors;
 
-class SiteController {
+class SiteController 
+{
     
     public function actionIndex() {
         

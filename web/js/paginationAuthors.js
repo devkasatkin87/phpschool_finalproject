@@ -1,23 +1,27 @@
-var num = 10;
+
+var numAuthors = 10;
+var numDates = 10;
+var numTopics = 10;
+var numArticles = 10;
 
 function funcSuccessAuthors(data) {
     $("#authors").append(data);
-    num += 10;
+    numAuthors += 10;
 }
 
 function funcSuccessDates(data) {
     $("#dates").append(data);
-    num += 10;
+    numDates += 10;
 }
 
 function funcSuccessTopics(data) {
     $("#topics").append(data);
-    num += 10;
+    numTopics += 10;
 }
 
 function funcSuccessArticles(data) {
     $("#articles").append(data);
-    num += 10;
+    numArticles += 10;
 }
 
 $(document).ready(function () {
@@ -26,7 +30,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/src/components/pagination/paginationAuthors.php",
             type: "POST",
-            data: {num: num},
+            data: {numAuthors: numAuthors},
             dataType: "html",
             success: funcSuccessAuthors
         });
@@ -36,7 +40,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/src/components/pagination/paginationDates.php",
             type: "POST",
-            data: {num: num},
+            data: {numDates: numDates},
             dataType: "html",
             success: funcSuccessDates
         });
@@ -46,7 +50,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/src/components/pagination/paginationTopics.php",
             type: "POST",
-            data: {num: num},
+            data: {numTopics: numTopics},
             dataType: "html",
             success: funcSuccessTopics
         });
@@ -56,7 +60,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/src/components/pagination/paginationArticles.php",
             type: "POST",
-            data: {num: num},
+            data: {numArticles: numArticles},
             dataType: "html",
             success: funcSuccessArticles
         });
