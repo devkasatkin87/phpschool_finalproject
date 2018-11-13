@@ -6,7 +6,6 @@
  * @param src\models\Authors $author
  *  */
 ?>
-<div class="container">
     <div class="row">
         <div class="col-sm-9">
             <div class="title text-center">
@@ -51,7 +50,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

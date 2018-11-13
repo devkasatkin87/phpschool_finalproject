@@ -10,7 +10,6 @@
 <script src="/web/js/pagination.js"></script>
 
 
-<div class="container">
     <div class="row">
         <!--Title-->
         <div class="title col-sm-12">
@@ -85,6 +84,5 @@
             </div>
         </div>
     </div>
-</div>
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

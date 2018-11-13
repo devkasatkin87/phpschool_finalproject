@@ -10,3 +10,11 @@
     <title>Catalog of articles</title>
   </head>
   <body>
+      <div class="container">
+          <div class="row">
+            <div class="authorization">
+                <a href="" class="signIn">Sign In</a>
+                <a href="" class="signUp">Sign Up</a>
+                <a href="" class="signOut hidden">Exit</a>
+            </div>
+          </div>
