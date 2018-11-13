@@ -48,9 +48,13 @@ class SiteController
         
         $topicId = $modelArticlesToTopic->getTopicIdByArticleId($id);
         $topic = $modelTopics->getTopicTitleById($topicId);
-        
+        //var_dump($topicId);
         $authorId = $modelArticlesToAuthors->getAuthorIdByArticleId($id);
         $author = $modelAuthors->getAuthorNameById($authorId);
+        
+        $articlesIds = $modelArticlesToTopic->getArticlesByTopicId($topicId);
+        
+        $topArticles = $modelArticles->getTopArticlesByCategory(10, $articlesIds);
         
         require_once ROOT.'/src/views/site/article.php';
         

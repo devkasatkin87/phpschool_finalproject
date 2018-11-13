@@ -35,8 +35,19 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="top-articles text-center">
-                <h4>Top 10 of articles:</h4>
+            <div class="top-articles">
+                <div class="title  text-center">
+                    <h4>Top 10 of articles:</h4>
+                </div>
+                <div class="row">
+                    <div class="Topcontent">
+                        <ul>
+                            <?php foreach ($topArticles as $topArticle): ?>
+                                <li><?= $topArticle['title'];?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

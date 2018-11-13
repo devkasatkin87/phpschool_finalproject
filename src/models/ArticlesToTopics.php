@@ -6,6 +6,9 @@ use ActiveRecord\Model;
 
 class ArticlesToTopics extends Model {
     
+    const SHOW_TOP_ARTICLES_DEFAULT = 10;
+
+
     /**
      * 
      * @param int $article_id
@@ -17,6 +20,25 @@ class ArticlesToTopics extends Model {
         $attributes = $attributes[0]->attributes();
         
         return $attributes['topic_id'];
+    }
+    
+    public function getArticlesByTopicId(int $topicId) : array
+    {
+        $list = [];
+        $listObj = [];
+        $conditions = [
+            'conditions' => ['topic_id=?', $topicId],
+            'limit' => 10
+        ];
+        
+        
+        $listObj = self::all($conditions);
+        
+        foreach ($listObj as $obj) {
+            $list[] = $obj->attributes();
+        }
+        
+        return $list;
     }
     
 }

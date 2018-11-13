@@ -47,6 +47,24 @@ class Articles extends Model
         
         return $articleObj;
     }
+    
+    /**
+     * @param int $top
+     * @param int $ids
+     * @return array
+     */
+    public function getTopArticlesByCategory(int $top, array $ids) : array
+    {
+    
+        $attributes = [];
+        $list = [];
+        
+        foreach($ids as $id){
+            $list[]= self::find([$id['id']])->attributes();
+        }
+              
+        return $list;
+    }
 
     /**
      * Service method which parse array of objects
@@ -61,4 +79,5 @@ class Articles extends Model
 
         return $list;
     }
+    
 }
