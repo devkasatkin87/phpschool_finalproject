@@ -1,10 +1,8 @@
 <?php
 
 return [
-    'user/login' => 'user/login', //actionLogin UserContorller
-    'user/logout' => 'user/logout', //actionLogout UserContorller
-    'user/register' => 'user/register', //actionRegister UserContorller
-    'article/([0-9]+)' => 'site/article/$1', //actionArticle SiteController
+    'article/create' => 'article/create', //actionCreate ArticleController
+    'article/([0-9]+)' => 'article/view/$1', //actionView ArticleController
     'generate' => 'generate/index', //actionIndex GenerateController
     '' => 'site/index', //actionIndex SiteController
 ];

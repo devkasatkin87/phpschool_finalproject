@@ -60,7 +60,7 @@ class Articles extends Model
         $list = [];
         
         foreach($ids as $id){
-            $list[]= self::find([$id['id']])->attributes();
+            $list[]= self::find([$id['article_id']])->attributes();
         }
               
         return $list;

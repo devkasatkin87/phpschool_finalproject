@@ -41,18 +41,19 @@ class RouterControl {
     public function setRouting($uri, $routes)
     {
         foreach ($this->routerEntity->getRoutes() as $uriPattern => $path) {
-            
+
             if (preg_match("~$uriPattern~", $uri)){                
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+
                 $segment = explode('/', $internalRoute);
-               
+
                 $parameters = $this->setRoutsParams($segment);
                 
                 $this->includeControllerFile();
                     
                 $nameControllerObject = $this->routerEntity->getControllerName();       
                 $actionName = $this->routerEntity->getActionName();
-                
+
                 $controllerObject = new $nameControllerObject();
 
                 $result = call_user_func_array(array($controllerObject,$actionName), $parameters);
