@@ -26,27 +26,14 @@ services:
           - ./:/application
           - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       links:
-        - php-fpm1
-        - php-fpm2
+        - php-fpm
       ports:
        - "8080:80"
 
-    php-fpm1:
+    php-fpm:
       build: phpdocker/php-fpm
-      container_name: "backend1"
+      container_name: myproject-php-fpm
       working_dir: /application
-      environment:
-        - BACKEND_NAME=BACKEND_1
-      volumes:
-        - ./:/application
-        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
-        
-    php-fpm2:
-      build: phpdocker/php-fpm
-      container_name: "backend2"
-      working_dir: /application
-      environment:
-        - BACKEND_NAME=BACKEND_2
       volumes:
         - ./:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
