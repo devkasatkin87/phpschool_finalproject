@@ -8,8 +8,7 @@
  */ ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="/web/js/pagination.js"></script>
-<body>
-    <div class="container">
+
         <div class="row">
             <!--Title-->
             <div class="title col-sm-12">
@@ -18,10 +17,7 @@
                 </h1>
             </div><!--end Title-->
         </div>
-        <div class="row">
-            <div class="create_article"><a  href="http://admin.myproject.ll:8080/article/create" class="btn btn-info"> + Create new article</a></div>
-        </div>
-        <br>
+      
         <div class="row">
             <div class="content content_articles col-md-3">
                 <div class="row">
@@ -88,7 +84,5 @@
                 </div>
             </div>
         </div>
-    </div>    
-</body>
     <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

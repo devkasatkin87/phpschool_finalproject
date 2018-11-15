@@ -48,6 +48,7 @@ class ArticleController
     public function actionCreate()
     {
         require_once ROOT.'/src/views/article/create.php';
+        
         return true;
     }
     
