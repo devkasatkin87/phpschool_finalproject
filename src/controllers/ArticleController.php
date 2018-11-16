@@ -42,13 +42,16 @@ class ArticleController
         return true;
     }
     
-    /**
-     * 
-     *      */
     public function actionCreate()
     {
         require_once ROOT.'/src/views/article/create.php';
         
+        return true;
+    }
+    
+    public function actionControll()
+    {
+        echo "Controll";
         return true;
     }
     

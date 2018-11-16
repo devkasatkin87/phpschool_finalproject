@@ -39,14 +39,12 @@ class User extends Model
         if($this->checkData($name, $password)){
             
             $conditions = [
-                'conditions' => ['username=?', $name],
+                'conditions' => ['username=? and password=?', $name, $password]
                 ];
 
             $attr = self::first('all', $conditions);
-            //var_dump($attr);die;
             
             if ($attr == null){
-                echo "User is not found!";
                 return false;
             }
             
@@ -62,13 +60,14 @@ class User extends Model
 
     /**
      * 
-     * @param int $userId
+     * @param string $username
      * @param int $isAdmin
      *      */
-    public function auth($userId, $isAdmin)
+    public function auth($username, $isAdmin)
     {
-        $_SESSION['user'] = $userId;
+        $_SESSION['user'] = $username;
         $_SESSION['is_admin'] = $isAdmin;
+        
     }
     
     public function isAdmin(int $id) : int

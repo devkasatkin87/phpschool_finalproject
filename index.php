@@ -12,6 +12,8 @@ use src\components\router\RouterEntity;
 
 define('ROOT', dirname('__FILE__'));
 
+session_start();
+
 //Define path to routes (/src/config)
 $routesPath = __DIR__.'/src/config/routes.php';
 

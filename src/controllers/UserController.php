@@ -8,7 +8,6 @@ class UserController
     
     public function actionLogin()
     {
-        
         $db = Db::connection();
         
         $username = '';
@@ -26,12 +25,7 @@ class UserController
             if ($userId == false){
                 $errors[] = 'Error in username or password';
             }else{
-                $userModel->auth($userId, $isAdmin);
-                var_dump($_SESSION);die;
-                if ($isAdmin == 1){
-                    header("Location: /article/create");
-                }
-                
+                $userModel->auth($username, $isAdmin);
                 header("Location: /");
             }
         }
@@ -42,7 +36,9 @@ class UserController
     
     public function actionLogout() {
         unset($_SESSION['user']);
+        unset($_SESSION['is_admin']);
+        session_destroy();
         header("Location: /");
-    }
-    
+    }   
 }
+
