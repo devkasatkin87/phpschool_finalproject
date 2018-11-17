@@ -37,7 +37,6 @@ class UserController
     public function actionLogout() {
         unset($_SESSION['user']);
         unset($_SESSION['is_admin']);
-        session_destroy();
         header("Location: /");
     }   
 }

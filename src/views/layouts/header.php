@@ -37,6 +37,5 @@
                         </li>
                     <?php endif; ?>
                 </ul>
-                    <?php var_dump($_SESSION);?>
             </div>
         </nav>
