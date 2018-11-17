@@ -135,14 +135,14 @@ class User extends Model
      * @param string $username
      * @return bool
      */
-    private function checkUsernameExist(string $username) : bool
+    public function checkUsernameExist(string $username) : bool
     {
         $condition = [
-            'condition' => ['username =?', $username],
+            'conditions' => ['username =?', $username],
         ];
         
        if (is_string($username)){
-           if(self::find('all',$condition)){
+           if(self::first('all',$condition)){
                return true;
            }
        }

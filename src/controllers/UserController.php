@@ -61,7 +61,7 @@ class UserController
             
             $modelUser = new User();
             
-            if($modelUser->checkData($username, $password, $isAdmin)){
+            if($modelUser->checkData($username, $password, $isAdmin) && !($modelUser->checkUsernameExist($username))){
                 $modelUser::create([
                     'username' => $username,
                     'password' => $password,
@@ -70,6 +70,8 @@ class UserController
                 $modelUser->auth($username, $isAdmin);
                 
                 header("Location : /");
+            }else{
+                $errors[] = "Username has already used!";
             }
         }
         
