@@ -4,7 +4,7 @@
  * @param array $authorsList src\models\Authors; 
  * @param array $articlesDateList src\models\Articles;
  * @param array $articlesList src\models\Articles;
- * @param array $topicsList src\models\Articles; 
+ * @param array $topicsList src\models\Articles;
  */ ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="/web/js/pagination.js"></script>
