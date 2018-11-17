@@ -84,6 +84,5 @@
                 </div>
             </div>
         </div>
-        <?php var_dump($_SESSION);?>
     <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

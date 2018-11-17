@@ -39,16 +39,16 @@ class User extends Model
         if($this->checkData($name, $password)){
             
             $conditions = [
-                'conditions' => ['username=? and password=?', $name, $password]
+                'conditions' => ['username=?', $name]
                 ];
 
             $attr = self::first('all', $conditions);
+            $attr = $attr->attributes();
+            //var_dump($attr['password']);die;
             
-            if ($attr == null){
+            if ($attr == null || !(password_verify($password, $attr['password']))){
                 return false;
             }
-            
-            $attr = $attr->attributes();
             
             $id = $attr['id'];
             
