@@ -18,18 +18,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                        <?php if(src\models\User::isGuest()):?>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/login">Sign In</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/register">Sign Up</a>
                         </li>
-                        <?php else: ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/logout">Sign Out</a>
                         </li>
-                        <?php endif;?>
                 </ul>
             </div>
         </nav>
