@@ -18,8 +18,12 @@ class User extends Model
      *      */
     public function checkData($name, $password, $isAdmin = 0) : bool 
     {
-        if ($this->checkUsername($name) && $this->checkPassword($password) && $this->checkIsAdmin($isAdmin)){
-            return true;
+        if ($this->checkUsername($name)){
+            if ($this->checkPassword($password)){
+                if($this->checkIsAdmin($isAdmin)){
+                    return true;
+                }
+            }
         }
         return false;
     }

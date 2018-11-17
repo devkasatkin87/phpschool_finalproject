@@ -37,7 +37,6 @@ class UserController
     public function actionLogout() {
         unset($_SESSION['user']);
         unset($_SESSION['is_admin']);
-        setcookie(session_id(), "", time() - 3600);
         session_destroy();
         session_write_close();
         header("Location: /");
@@ -56,13 +55,13 @@ class UserController
             
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $password = password_hash($password,PASSWORD_DEFAULT);
             $isAdmin = $_POST['is_admin'];
             
             $modelUser = new User();
-            
-            if($modelUser->checkData($username, $password, $isAdmin) && !($modelUser->checkUsernameExist($username))){
-                $modelUser::create([
+            if($modelUser->checkData($username, $password, $isAdmin)){
+                if(!$modelUser->checkUsernameExist($username)){
+                    $password = password_hash($password,PASSWORD_DEFAULT);
+                    $modelUser::create([
                     'username' => $username,
                     'password' => $password,
                     'is_admin' => $isAdmin
@@ -70,8 +69,9 @@ class UserController
                 $modelUser->auth($username, $isAdmin);
                 
                 header("Location : /");
+                }
             }else{
-                $errors[] = "Username has already used!";
+                $errors[] = "Username has already used or has errors in username or password!";
             }
         }
         
