@@ -16,11 +16,11 @@ class User extends Model
      * @param int $isAdmin
      * @return bool
      *      */
-    public function checkData($name, $password, $isAdmin = 0) : bool 
+    public static function checkData($name, $password, $isAdmin = 0) : bool 
     {
-        if ($this->checkUsername($name)){
-            if ($this->checkPassword($password)){
-                if($this->checkIsAdmin($isAdmin)){
+        if (self::checkUsername($name)){
+            if (self::checkPassword($password)){
+                if(self::checkIsAdmin($isAdmin)){
                     return true;
                 }
             }
@@ -34,13 +34,13 @@ class User extends Model
      * @param string $password
      * @return int || bool
      *      */
-    public function getUser(string $name, string $password)
+    public static function getUser(string $name, string $password)
     {   
         $id = 0;
         
-        $isTrue = $this->checkData($name, $password);
+        $isTrue = self::checkData($name, $password);
         
-        if($this->checkData($name, $password)){
+        if(self::checkData($name, $password)){
             
             $conditions = [
                 'conditions' => ['username=?', $name]
@@ -48,12 +48,11 @@ class User extends Model
 
             $user = self::first('all', $conditions);
             $user = $user->attributes();
-            
             if ($user == null || !(password_verify($password, $user['password']))){
                 return false;
+            }else{
+                return $user;
             }
-            
-            return $user;
         }
         
         return false;
@@ -65,7 +64,7 @@ class User extends Model
      * return array || bool
      *      */
     
-    public function getUserById(int $id)
+    public static function getUserById(int $id)
     {
         $id = intval($id);
         
@@ -90,7 +89,7 @@ class User extends Model
      * @param int $isAdmin
      * @return true
      *      */
-    public function auth($userId,$isAdmin) : bool
+    public static function auth($userId,$isAdmin) : bool
     {
         $_SESSION['user'] = $userId;
         $_SESSION['is_admin'] = $isAdmin;
@@ -99,7 +98,7 @@ class User extends Model
         
     }
     
-    public function isAdmin(int $id) : int
+    public static function isAdmin(int $id) : int
     {
         if (is_int($id)){
             $attr = self::first('all', ['conditions' => ['id=?', $id]]);
@@ -118,7 +117,7 @@ class User extends Model
      * @param string $name
      * @return bool
      */
-    private function checkUsername(string $name) : bool
+    private static function checkUsername(string $name) : bool
     {
         if (is_string($name)){
             if (strlen($name)>=2){
@@ -134,7 +133,7 @@ class User extends Model
      * @param string $password
      * @return bool
      */
-    private function checkPassword(string $password) : bool
+    private static function checkPassword(string $password) : bool
     {
         if (is_string($password)){
             if(strlen($password)>=6){
@@ -149,7 +148,7 @@ class User extends Model
      * @param int $right
      * @return bool
      */
-    private function checkIsAdmin(int $right) : bool
+    private static function checkIsAdmin(int $right) : bool
     {
         if (is_int($right)){
             if ($right == 1 || $right == 0){
@@ -164,7 +163,7 @@ class User extends Model
      * @param string $username
      * @return bool
      */
-    public function checkUsernameExist(string $username) : bool
+    public static function checkUsernameExist(string $username) : bool
     {
         $condition = [
             'conditions' => ['username =?', $username],
@@ -182,10 +181,11 @@ class User extends Model
     /**
      * 
      * @return int User id
-     *      */
-    public function checkLogged()
+     */
+    public static function checkLogged()
     {
         if(isset($_SESSION['user'])){
+            
             return $_SESSION['user'];
         }
         
@@ -195,8 +195,8 @@ class User extends Model
     /**
      * 
      * @return int || bool user is admin?
-     *      */
-    public function checkAdmin()
+     */
+    public static function checkAdmin()
     {
         if (isset($_SESSION['is_admin'])){
             return $_SESSION['is_admin'];

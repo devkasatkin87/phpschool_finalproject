@@ -14,17 +14,16 @@ class UserController
         $password = '';
         $errors = false;
         
-        $userModel = new User();
         if (isset($_POST['submit'])){
             $username = $_POST['username'];
             $password = $_POST['password'];
             
-            $user = $userModel->getUser($username, $password);
+            $user = User::getUser($username, $password);
             
             if ($user == false){
                 $errors[] = 'Error in username or password';
             }else{
-                $userModel->auth($user['id'], $user['is_admin']);
+                User::auth($user['id'], $user['is_admin']);
                 header("Location: /user/office");
             }
         }
@@ -54,13 +53,12 @@ class UserController
             $password = $_POST['password'];
             $isAdmin = $_POST['is_admin'];
             
-            $modelUser = new User();
-            if($modelUser->checkData($username, $password, $isAdmin)){
-                if(!$modelUser->checkUsernameExist($username)){
+            if(User::checkData($username, $password, $isAdmin)){
+                if(!User::checkUsernameExist($username)){
                     
                     $password = password_hash($password,PASSWORD_DEFAULT);
                     
-                    $user = $modelUser::create([
+                    $user = User::create([
                     'username' => $username,
                     'password' => $password,
                     'is_admin' => $isAdmin
@@ -68,7 +66,7 @@ class UserController
                     
                     $user = $user->attributes();
                 
-                    $result = $modelUser->auth($user['id'], $user['is_admin']);
+                    $result = User::auth($user['id'], $user['is_admin']);
                 
                     header("Location: /user/office");
                 
@@ -88,12 +86,10 @@ class UserController
         
         $db = Db::connection();
         
-        $userModel = new User();
+        $userId = User::checkLogged();
+        $userAdmin = User::checkAdmin();
         
-        $userId = $userModel->checkLogged();
-        $userAdmin = $userModel->checkAdmin();
-        
-        $user = $userModel->getUserById($userId);
+        $user = User::getUserById($userId);
         
         require_once ROOT.'/src/views/user/office/index.php';
         return true;

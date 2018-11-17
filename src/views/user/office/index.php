@@ -5,7 +5,7 @@
         <p>Hello, <?=$user['username'];?>!</p>
     </div>
     <div class="row">
-        
+
     </div>
 </div>
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
