@@ -19,14 +19,13 @@ class UserController
             $username = $_POST['username'];
             $password = $_POST['password'];
             
-            $userId = $userModel->getUserId($username, $password);
-            $isAdmin = $userModel->isAdmin($userId);
+            $user = $userModel->getUser($username, $password);
             
-            if ($userId == false){
+            if ($user == false){
                 $errors[] = 'Error in username or password';
             }else{
-                $userModel->auth($username, $isAdmin);
-                header("Location: /");
+                $userModel->auth($user['id'], $user['is_admin']);
+                header("Location: /user/office");
             }
         }
         
@@ -37,8 +36,6 @@ class UserController
     public function actionLogout() {
         unset($_SESSION['user']);
         unset($_SESSION['is_admin']);
-        session_destroy();
-        session_write_close();
         header("Location: /");
     }
     
@@ -60,22 +57,45 @@ class UserController
             $modelUser = new User();
             if($modelUser->checkData($username, $password, $isAdmin)){
                 if(!$modelUser->checkUsernameExist($username)){
+                    
                     $password = password_hash($password,PASSWORD_DEFAULT);
-                    $modelUser::create([
+                    
+                    $user = $modelUser::create([
                     'username' => $username,
                     'password' => $password,
                     'is_admin' => $isAdmin
                     ]);
-                $modelUser->auth($username, $isAdmin);
+                    
+                    $user = $user->attributes();
                 
-                header("Location : /");
+                    $result = $modelUser->auth($user['id'], $user['is_admin']);
+                
+                    header("Location: /user/office");
+                
+                }else{
+                    $errors[] = "Username has already used";
                 }
             }else{
-                $errors[] = "Username has already used or has errors in username or password!";
+                $errors[] = "Error in username or password";
             }
         }
         
         require_once ROOT.'/src/views/user/registration.php';        
+        return true;
+    }
+    
+    public function actionIndex() {
+        
+        $db = Db::connection();
+        
+        $userModel = new User();
+        
+        $userId = $userModel->checkLogged();
+        $userAdmin = $userModel->checkAdmin();
+        
+        $user = $userModel->getUserById($userId);
+        
+        require_once ROOT.'/src/views/user/office/index.php';
         return true;
     }
 }

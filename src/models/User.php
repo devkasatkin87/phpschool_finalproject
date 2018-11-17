@@ -34,7 +34,7 @@ class User extends Model
      * @param string $password
      * @return int || bool
      *      */
-    public function getUserId($name, $password)
+    public function getUser(string $name, string $password)
     {   
         $id = 0;
         
@@ -46,31 +46,56 @@ class User extends Model
                 'conditions' => ['username=?', $name]
                 ];
 
-            $attr = self::first('all', $conditions);
-            $attr = $attr->attributes();
-            //var_dump($attr['password']);die;
+            $user = self::first('all', $conditions);
+            $user = $user->attributes();
             
-            if ($attr == null || !(password_verify($password, $attr['password']))){
+            if ($user == null || !(password_verify($password, $user['password']))){
                 return false;
             }
             
-            $id = $attr['id'];
-            
-            return $id;
+            return $user;
         }
         
         return false;
+    }
+    
+    /**
+     * 
+     * @param int $id
+     * return array || bool
+     *      */
+    
+    public function getUserById(int $id)
+    {
+        $id = intval($id);
+        
+        $conditions = [
+            'conditions' => ['id=?', $id]
+        ];
+        
+        $user = self::first('all', $conditions);
+        
+        $user = $user->attributes();
+        
+        if ($user == null)
+        {
+            return false;
+        }
+        return $user;
     }
 
     /**
      * 
      * @param string $username
      * @param int $isAdmin
+     * @return true
      *      */
-    public function auth($username, $isAdmin)
+    public function auth($userId,$isAdmin) : bool
     {
-        $_SESSION['user'] = $username;
+        $_SESSION['user'] = $userId;
         $_SESSION['is_admin'] = $isAdmin;
+        
+        return true;
         
     }
     
@@ -152,5 +177,45 @@ class User extends Model
        }
        
        return false;
+    }
+    
+    /**
+     * 
+     * @return int User id
+     *      */
+    public function checkLogged()
+    {
+        if(isset($_SESSION['user'])){
+            return $_SESSION['user'];
+        }
+        
+        header("Location: /user/login");
+    }
+    
+    /**
+     * 
+     * @return int || bool user is admin?
+     *      */
+    public function checkAdmin()
+    {
+        if (isset($_SESSION['is_admin'])){
+            return $_SESSION['is_admin'];
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     * @return bool
+     *      */
+    public static function isGuest() : bool
+    {
+        if (isset($_SESSION['user']))
+        {
+            return false;
+        }
+        
+        return true;
     }
 }

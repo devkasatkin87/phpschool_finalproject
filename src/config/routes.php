@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'user/cabinet' => 'user/cabinet', //actionCabinet UserConteroller
+    'user/office' => 'user/index', //actionCabinet UserConteroller
     'user/login' => 'user/login', //actionLogin UserController
     'user/register' => 'user/register', //actionRegister UserController
     'user/logout' => 'user/logout', //actionLogout UserController
