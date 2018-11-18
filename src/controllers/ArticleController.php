@@ -65,7 +65,7 @@ class ArticleController
             $date = date('Y-m-d', time());
             
             $result = $modelArticle->add($title, $content, $author, $topic, $date, $image);
-            var_dump($result);
+            
         }
         
         require_once ROOT.'/src/views/article/controll/forms/add.php';

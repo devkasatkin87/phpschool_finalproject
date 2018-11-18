@@ -155,7 +155,7 @@ class Articles extends Model
      *      */
     public function add($title, $content, $author, $topic, $date, $image)
     {
-        $errors = [];
+        $message = '';
         $modelAuthors = new Authors();
         
         if ($this->checkEnterData($title, $content, $author)) {
@@ -171,13 +171,13 @@ class Articles extends Model
                         'author_id' => $authorId,
                         'topic_id' => $topic,
             ]);
+            $message = 'Article has been added';
             header("Location: /article/controll");
-            exit();
         } else {
-            $errors[] = "Error in data";
+            $message = "Error in data";
         }
         
-        return $errors;
+        return $message;
     }
     
     /**

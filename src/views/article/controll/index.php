@@ -5,6 +5,15 @@
     </div>
 </div>
 <div class="row">
+    <?php if (isset($result)) : ?>
+        <ul>
+            <?php foreach ($result as $message): ?>
+                <li><?= $message; ?></li>
+            <?php endforeach; ?>
+        </ul>    
+    <?php endif; ?>
+</div>
+<div class="row">
     <ul>
         <li><a href="/article/controll/add">Add article</a></li>
         <li><a href="/article/controll/update">Update article</a></li>

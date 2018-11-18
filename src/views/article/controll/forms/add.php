@@ -7,10 +7,10 @@
     </div>
 </div>
 <div class="row">
-    <?php if (isset($errors)) :?>
+    <?php if (isset($result)) :?>
         <ul>
-            <?php foreach ($errors as $error): ?>
-            <li><?= $error; ?></li>
+            <?php foreach ($result as $message): ?>
+            <li><?= $message; ?></li>
             <?php endforeach; ?>
         </ul>    
     <?php endif; ?>
