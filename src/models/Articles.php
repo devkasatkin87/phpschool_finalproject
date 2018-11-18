@@ -180,6 +180,16 @@ class Articles extends Model
         return $errors;
     }
     
+    /**
+     * 
+     * @param string $title
+     * @param string $content
+     * @param string $author
+     * @param int $topic
+     * @param string $date
+     * @param string $image
+     * @return array || bool
+     *      */
     public function update($title, $content, $author, $topic, $date, $image)
     {
         $errors = [];
@@ -199,11 +209,27 @@ class Articles extends Model
                     'topic_id' => $topic
                 ]);
             
-            return $result;
+            header("Location: /article/controll");
+            exit();
         }else{
             $errors[] = 'Errors in data!';
         }
         
     }
+    
+    /**
+     * 
+     * @param int $id
+     * @return bool
+     *      */
+    public function remove($id)
+    {
+        $condtition = ['conditions' =>[ 'id=?', $id]];
+        
+        $result = $this->delete_all($condtition);
+        
+        header("Location: /");
+    }
+    
     
 }
