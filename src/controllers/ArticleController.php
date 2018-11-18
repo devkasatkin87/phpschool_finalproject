@@ -104,16 +104,21 @@ class ArticleController
             $date = date('Y-m-d', time());
             
             $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
-            header("Location: /article/controll");
         }
         
         require_once ROOT.'/src/views/article/controll/forms/update.php';
         return true;
     }
     
-    public function actionDelete()
+    public function actionDelete($id)
     {
-        require_once ROOT.'/src/views/article/controll/forms/delete.php';
+        $db = Db::connection();
+        
+        $modelArticle = new Articles();
+        
+        $modelArticle->remove($id);
+        
+        //require_once ROOT.'/src/views/article/controll/forms/delete.php';
         return true;
     }
     
