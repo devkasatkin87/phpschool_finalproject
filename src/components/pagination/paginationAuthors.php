@@ -11,7 +11,6 @@ use src\components\Db;
 use src\models\Authors;
 
 $offset = $_POST['numAuthors'];
-var_dump($offset);
 if (is_numeric($offset)){
     $db = Db::connection();
 
