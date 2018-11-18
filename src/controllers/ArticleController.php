@@ -19,39 +19,107 @@ class ArticleController
         
         $modelArticles = new Articles();
         $modelTopics = new Topics();
-        $modelArticlesToTopic = new ArticlesToTopics();
         $modelAuthors = new Authors();
-        $modelArticlesToAuthors = new ArticlesToAuthors();
         
         $article = $modelArticles->getArticleById($id);
         $article = $article->attributes();
-
-        $topicId = $modelArticlesToTopic->getTopicIdByArticleId($id);
+        
+        $topicId = $article['topic_id'];
+        
         $topic = $modelTopics->getTopicTitleById($topicId);
         
-        $authorId = $modelArticlesToAuthors->getAuthorIdByArticleId($id);
+        $authorId = $article['author_id'];
         $author = $modelAuthors->getAuthorNameById($authorId);
         
-        $articlesIds = $modelArticlesToTopic->getArticlesByTopicId($topicId);
-        
-        $topArticles = $modelArticles->getTopArticlesByCategory(10, $articlesIds);
-        
+        $topArticles = $modelArticles->getTopArticlesByCurrentCategory(10, $topicId);
         
         require_once ROOT.'/src/views/site/article.php';
         
         return true;
     }
     
-    public function actionCreate()
+    public function actionAdd()
     {
-        require_once ROOT.'/src/views/article/create.php';
+        $db = Db::connection();
         
+        $title = '';
+        $author = '';
+        $topic = '';
+        $content = '';
+        $date = '';
+        $img = '';
+        $errors = [];
+
+        $modelTopics = new Topics();
+        $modelArticle = new Articles();
+        $modelAuthors = new Authors();
+        
+        $topics = $modelTopics->getAllTopics();
+        
+        if(isset($_POST['submit'])){
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $topic = $_POST['topic'];
+            $content = $_POST['content'];
+            $image = 'image';
+            $date = date('Y-m-d', time());
+            
+            $result = $modelArticle->add($title, $content, $author, $topic, $date, $image);
+            var_dump($result);
+        }
+        
+        require_once ROOT.'/src/views/article/controll/forms/add.php';
+        return true;
+    }
+    
+    public function actionUpdate($id)
+    {
+        $db = Db::connection();
+        
+        $title = '';
+        $author = '';
+        $topic = '';
+        $content = '';
+        $date = '';
+        $img = '';
+        $errors = [];
+        
+        $modelTopics = new Topics();
+        $modelAuthors = new Authors();
+        $modelArticles = new Articles();
+        
+        $topics = $modelTopics->getAllTopics();
+        
+        $articleObj = $modelArticles->getArticleById($id);
+        $article = $articleObj->attributes();
+        
+        $author = $modelAuthors->getAuthorNameById($article['author_id']);
+        
+        if(isset($_POST['submit'])) {
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            $topic = $_POST['topic'];
+            $content = $_POST['content'];
+            $image = 'image';
+            $date = date('Y-m-d', time());
+            
+            $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
+            header("Location: /article/controll");
+        }
+        
+        require_once ROOT.'/src/views/article/controll/forms/update.php';
+        return true;
+    }
+    
+    public function actionDelete()
+    {
+        require_once ROOT.'/src/views/article/controll/forms/delete.php';
         return true;
     }
     
     public function actionControll()
     {
-        echo "Controll";
+        require_once ROOT.'/src/views/article/controll/index.php';
         return true;
     }
     

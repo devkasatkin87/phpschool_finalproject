@@ -25,6 +25,9 @@
                             <a class="nav-link" href="/user/register">Sign Up</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/user/office">Personal office</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/user/logout">Sign Out</a>
                         </li>
                 </ul>

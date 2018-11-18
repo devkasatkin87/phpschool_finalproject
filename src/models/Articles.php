@@ -50,19 +50,24 @@ class Articles extends Model
     
     /**
      * @param int $top
-     * @param int $ids
+     * @param int $topic_id
      * @return array
      */
-    public function getTopArticlesByCategory(int $top, array $ids) : array
+    public function getTopArticlesByCurrentCategory(int $top, int $topicId) : array
     {
-    
-        $attributes = [];
+        $objs = [];
         $list = [];
         
-        foreach($ids as $id){
-            $list[]= self::find([$id['article_id']])->attributes();
-        }
-              
+        $conditions = [
+            'conditions' => ['topic_id=?',$topicId],
+            'order' => 'views desc',
+            'limit' => $top
+            ];
+        
+        $objs = self::find('all', $conditions);
+        
+        $list = $this->parseArrayOfDbObj($objs);
+        
         return $list;
     }
 
@@ -73,11 +78,132 @@ class Articles extends Model
      */
     private function parseArrayOfDbObj(array $objs) : array
     {
+        $list = [];
+        
         foreach ($objs as $obj) {
             $list[] = $obj->attributes();
         }
 
         return $list;
+    }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function checkEnterData($title, $content, $author) {
+        if ($this->checkTitle($title) && $this->checkContent($content) && $this->checkAuthor($author)){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * @param string $title
+     * @return bool
+     * 
+     *      */
+    private function checkTitle($title) : bool
+    {
+        if (is_string($title) && (strlen($title)>=2)){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     * @param string $content
+     * @return bool
+     * 
+     *      */
+    private function checkContent($content) : bool
+    {
+        if (is_string($content) && (strlen($content)>=2)){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     * @param string $author
+     * @return bool
+     * 
+     *      */
+    private function checkAuthor($author) : bool
+    {
+        if (is_string($author) && (strlen($author)>=2)){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     * @param string $title
+     * @param string $content
+     * @param string $author
+     * @param int $topic
+     * @param string $date
+     * @param string $image
+     * @return array
+     *      */
+    public function add($title, $content, $author, $topic, $date, $image)
+    {
+        $errors = [];
+        $modelAuthors = new Authors();
+        
+        if ($this->checkEnterData($title, $content, $author)) {
+            
+            $authorId = $modelAuthors->add($author);
+            
+            $article = Articles::create([
+                        'title' => $title,
+                        'date_published' => $date,
+                        'content' => $content,
+                        'img' => $image,
+                        'views' => 0,
+                        'author_id' => $authorId,
+                        'topic_id' => $topic,
+            ]);
+            header("Location: /article/controll");
+            exit();
+        } else {
+            $errors[] = "Error in data";
+        }
+        
+        return $errors;
+    }
+    
+    public function update($title, $content, $author, $topic, $date, $image)
+    {
+        $errors = [];
+        $modelsAuthor = new Authors();
+        
+        if ($this->checkEnterData($title, $content, $author)){
+            
+            $authorId = $modelsAuthor->add($author);
+            
+            $result = $this->update_attributes([
+                    'title' => $title,
+                    'date_published' => $date,
+                    'content' => $content,
+                    'img' => $image,
+                    'views' => 0,
+                    'author_id' => $authorId,
+                    'topic_id' => $topic
+                ]);
+            
+            return $result;
+        }else{
+            $errors[] = 'Errors in data!';
+        }
+        
     }
     
 }

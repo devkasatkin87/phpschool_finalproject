@@ -18,6 +18,9 @@
             </div>
         </div>
         <div class="row">
+            <a href="/article/controll/update/<?= $article['id'];?>" class="btn btn-outline-secondary">Update article</a>
+        </div>
+        <div class="row">
             <div class="col-md-9">
                 <div class="row">
                     <div class="serviceData">
@@ -45,7 +48,7 @@
                         <div class="Topcontent">
                             <ul>
                                 <?php foreach ($topArticles as $topArticle): ?>
-                                    <li><?= $topArticle['title'];?></li>
+                                    <li><?= "{$topArticle['title']} Views: {$topArticle['views']}";?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

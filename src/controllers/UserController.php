@@ -25,6 +25,7 @@ class UserController
             }else{
                 User::auth($user['id'], $user['is_admin']);
                 header("Location: /user/office");
+                exit();
             }
         }
         
@@ -36,6 +37,7 @@ class UserController
         unset($_SESSION['user']);
         unset($_SESSION['is_admin']);
         header("Location: /");
+        exit();
     }
     
     public function actionRegister()
@@ -69,6 +71,7 @@ class UserController
                     $result = User::auth($user['id'], $user['is_admin']);
                 
                     header("Location: /user/office");
+                    exit();
                 
                 }else{
                     $errors[] = "Username has already used";

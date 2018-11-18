@@ -18,9 +18,7 @@ class GenerateController
         
         $faker = Factory::create();
         
-//        for ($i = 0; $i < 2; $i++) {
-//            $resultDbTopics = $this->setDataToDb($db, $faker);
-//        }
+//        $resultDbTopics = $this->setArticlesToDb($db, $faker);
         
 //        $this->generateTableArticlesToTopics($db);
 //        
@@ -28,28 +26,39 @@ class GenerateController
         
 //        $this->generateTableArticlesToAuthors($db);
         
+        
         echo "The Database has been generating!";
         
         return true;
 
     }
     
-    private function setDataToDb ($db, $faker) : bool
+    private function setArticlesToDb ($db, $faker) : bool
     {
         
         if (is_object($db)){
             
-            $sql = ("INSERT INTO authors (first_name, second_name) VALUES (:first, :second)");
+            $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 17; $i++) {
+            for ($i = 0; $i < 5000; $i++) {
 
                 $stm = $db->prepare($sql);
                 
-                $first = $faker->firstName;
-                $second = $faker->lastName;;
+                $title = $faker->sentence;
+                $date = $faker->year;
+                $content = $faker->text;
+                $img = $faker->image();
+                $views = mt_rand(0,50000);
+                $topicId = mt_rand(1,40);
+                $authorId = mt_rand(1,4034);
 
-                $stm->bindParam(':first', $first);
-                $stm->bindParam(':second', $second);
+                $stm->bindParam(':title', $title);
+                $stm->bindParam(':date', $date);
+                $stm->bindParam(':content', $content);
+                $stm->bindParam(':img', $img);
+                $stm->bindParam(':views', $views);
+                $stm->bindParam(':topic_id', $topicId);
+                $stm->bindParam(':author_id', $authorId);
 
                 $stm->execute();
             }

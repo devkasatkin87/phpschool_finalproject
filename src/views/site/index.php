@@ -33,7 +33,7 @@
                     </ol>
                 </div>
                 <div class="row">
-                    <div id="loadNextArticles" type="button" class="btn btn-info">Show next articles</div>
+                    <div id="loadNextArticles" type="button" class="btn btn-outline-secondary">Show next articles</div>
                 </div>
             </div>
             <div class="content content_authors col-md-3">
@@ -48,7 +48,7 @@
                     </ol>
                 </div>
                 <div class="row">
-                    <div id="loadNextAuthors" type="button" class="btn btn-info">Show next authors</div>
+                    <div id="loadNextAuthors" type="button" class="btn btn-outline-secondary">Show next authors</div>
                 </div>
             </div>
             <div class="content content_topics col-md-3">
@@ -57,13 +57,13 @@
                     <ol  id="topics">
                         <?php foreach ($topicsList as $topic): ?>
                             <li>
-                                <?= $topic['title'] . ' ' . $topic['articles_count']; ?>
+                                <?= $topic['title']; ?>
                             </li>
                         <?php endforeach; ?>
                     </ol>
                 </div>
                 <div class="row">
-                    <div id="loadNextTopics" type="button" class="btn btn-info">Show next topics</div>
+                    <div id="loadNextTopics" type="button" class="btn btn-outline-secondary">Show next topics</div>
                 </div>
             </div>
             <div class="content content_datePubleshed col-md-3">
@@ -80,7 +80,7 @@
                     </ol>    
                 </div>
                 <div class="row">
-                    <div id="loadNextDates" type="button" class="btn btn-info">Show next dates</div>
+                    <div id="loadNextDates" type="button" class="btn btn-outline-secondary">Show next dates</div>
                 </div>
             </div>
         </div>

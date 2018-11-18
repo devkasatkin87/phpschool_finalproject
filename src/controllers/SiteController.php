@@ -23,7 +23,7 @@ class SiteController
         
         $authorsList = $modelAuthors->getLimitAuthorsSortByName(0);
         $articlesDateList = $modelArticles->getLimitDates(0);
-        $topicsList = $modelTopics->getTopicsSortByCountArticles(0);
+        $topicsList = $modelTopics->getTopics(0);
         $articlesList = $modelArticles->getArticles(0);
         
         require_once ROOT.'/src/views/site/index.php';

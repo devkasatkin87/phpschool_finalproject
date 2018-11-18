@@ -3,7 +3,6 @@
 namespace src\models;
 
 use ActiveRecord\Model;
-use SplQueue;
 
 class Topics extends Model
 {       
@@ -15,13 +14,12 @@ class Topics extends Model
      * 
      * @return array 
      */
-    
-    public function getTopicsSortByCountArticles(int $offset) : array 
+    public function getTopics(int $offset) : array 
     {
         $modelObjs = [];
         $list = [];
         
-        $modelObjs = self::find('all', ['limit' => self::SHOW_TOPICS_BY_DEFAULT, 'order' => 'articles_count asc', 'offset' => $offset]);
+        $modelObjs = self::find('all', ['limit' => self::SHOW_TOPICS_BY_DEFAULT,'offset' => $offset]);
         
         foreach ($modelObjs as $modelObj) {
             $list[] = $modelObj->attributes();
@@ -40,5 +38,21 @@ class Topics extends Model
         $topic = self::find('all', ['id' => $id]);
         $topic = $topic[0]->attributes();
         return $topic['title'];
+    }
+    
+    /**
+     * 
+     * @return array
+     *      */
+    public function getAllTopics() : array
+    {
+        $objTopics = self::all();
+        
+        foreach ($objTopics as $obj) {
+            
+            $topics[] = $obj->attributes();
+        }
+        
+        return $topics;
     }
 }

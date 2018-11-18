@@ -13,7 +13,7 @@ use src\components\router\RouterEntity;
 define('ROOT', dirname('__FILE__'));
 
 session_start();
-echo '<pre>';print_r($_SESSION);echo '</pre>';
+//echo '<pre>';print_r($_SESSION);echo '</pre>';
 //Define path to routes (/src/config)
 $routesPath = __DIR__.'/src/config/routes.php';
 

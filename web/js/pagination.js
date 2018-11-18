@@ -2,7 +2,7 @@
 var numAuthors = 10;
 var numDates = 10;
 var numTopics = 10;
-var numArticles = 10;
+var numArticles = 15;
 
 function funcSuccessAuthors(data) {
     $("#authors").append(data);
@@ -21,7 +21,7 @@ function funcSuccessTopics(data) {
 
 function funcSuccessArticles(data) {
     $("#articles").append(data);
-    numArticles += 10;
+    numArticles += 15;
 }
 
 $(document).ready(function () {

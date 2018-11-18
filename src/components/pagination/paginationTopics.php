@@ -29,10 +29,10 @@ if (is_numeric($offset)){
  *  */
 function getAdditionalTopics(Topics $model, int $offset) : void
 {
-    $topicsList = $model->getTopicsSortByCountArticles($offset);
+    $topicsList = $model->getTopics($offset);
 
     foreach ($topicsList as $topic){
         $offset++;
-        echo "<li>{$topic['title']} {$topic['articles_count']}</li>";
+        echo "<li>{$topic['title']}</li>";
     }
 }
