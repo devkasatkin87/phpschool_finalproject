@@ -6,13 +6,15 @@
  * @param src\models\Authors $author
  *  */
 ?>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="/web/js/createTop.js"></script>
 <body>
+    <p id="test">Response:</p>
     <div class="container">
         <div class="row">
             <div class="col-sm-9">
                 <div class="title text-center">
-                    <h3>Article # <?= $article['id']; ?></h3>
+                    <h3>Article # <i id="article_id"><?= $article['id']; ?></i></h3>
                     <p><?= $article['title']; ?></p>
                 </div>
             </div>
@@ -28,7 +30,7 @@
                         <div class="category">Topic: <?= $topic; ?></div>
                         <div class="date">date of publication of the article: <?= $article['date_published']; ?></div>
                         <div class="author">By: <?= $author; ?></div>
-                        <div class="views">Views: <?= $article['views'];?></div>
+                        <div class="views">Views: <i  id="article_views"><?= $article['views'];?></i></div>
                     </div>
                 </div>
                 <div class="row">

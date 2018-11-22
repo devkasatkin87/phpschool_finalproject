@@ -33,6 +33,8 @@ class ArticleController
         
         $topArticles = $modelArticles->getTopArticlesByCurrentCategory(10, $topicId);
         
+//        require_once ROOT.'/src/components/client.php';
+        
         require_once ROOT.'/src/views/site/article.php';
         
         return true;
