@@ -22,6 +22,6 @@ $topicId = $modelArticles->getTopicIdByArticleId($articleId);
 
 $ids = $modelArticles->getArticlesIdByTopicId($topicId);
 
-echo ClientJsonRpc::createMessageIds($ids, "getTopArticles"); 
+echo ClientJsonRpc::createMessageIds($articleId, $ids, "getTopArticles"); 
 
 ?>

@@ -8,12 +8,12 @@ class ClientJsonRpc {
     
     public static $client;
     
-    public static function createMessageIds(array $ids, string $method)
+    public static function createMessageIds(int $currentId, array $ids, string $method)
     {
         $idRequest = 1;
         
         self::$client = new Client();
-        self::$client->query($idRequest, $method, [1,$ids]);
+        self::$client->query($idRequest, $method, [$currentId,$ids]);
         $message = self::$client->encode();
         
         return $message;
