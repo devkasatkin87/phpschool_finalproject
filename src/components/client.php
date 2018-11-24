@@ -17,11 +17,12 @@ $db = src\components\Db::connection();
 $modelArticles = new Articles();
 
 $articleId = $_POST['article_id'];
+$method = $_POST['method'];
 
 $topicId = $modelArticles->getTopicIdByArticleId($articleId);
 
 $ids = $modelArticles->getArticlesIdByTopicId($topicId);
 
-echo ClientJsonRpc::createMessageIds($articleId, $ids, "getTopArticles"); 
+echo ClientJsonRpc::createMessageIds($articleId, $ids, $method); 
 
 ?>

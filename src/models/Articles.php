@@ -180,6 +180,15 @@ class Articles extends Model
         return $message;
     }
     
+    public function updateViews(int $id, int $views)
+    {
+        $article = $this->getArticleById($id);
+        
+        $result = $article->update_attribute('views', $views);
+        
+        return true;
+    }
+
     /**
      * 
      * @param string $title

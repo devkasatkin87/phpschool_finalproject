@@ -1,14 +1,24 @@
 function success(response){
+    var top = JSON.stringify(response);
+    $.ajax({
+        type: "POST",
+        url: '/src/components/topArticles.php',
+        data: response,
+        success: function (data){
+            $("#test").append(data);
+        }
+    });
     $("#test").append(JSON.stringify(response));
 }
 
 $(document).ready(function(){
     var article_id = $("#article_id").text();
-
+    var method = "getTopArticles";
+    var top = 10;
     $.ajax({
         type: "POST",
         url: '/src/components/client.php',
-        data: {article_id},
+        data: {article_id,method,top},
         success:function callAjax(data){
             $.ajax({
                 crossDomain: true,

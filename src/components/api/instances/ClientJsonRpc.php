@@ -8,6 +8,13 @@ class ClientJsonRpc {
     
     public static $client;
     
+    
+    /**
+     * 
+     * @param int $currentId Current Article Id
+     * @param array $ids Articles were filtered by topic
+     * @param string $method Name of processing method
+     *      */
     public static function createMessageIds(int $currentId, array $ids, string $method)
     {
         $idRequest = 1;
