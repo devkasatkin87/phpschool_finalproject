@@ -8,7 +8,7 @@
 ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="/web/js/createTop.js"></script>
-<body>
+
     <p id="test">Response:</p>
     <div class="container">
         <div class="row">
@@ -50,9 +50,7 @@
                     <div class="row">
                         <div class="Topcontent">
                             <ul>
-                                <?php foreach ($topArticles as $topArticle): ?>
-                                    <li><?= "{$topArticle['title']} Views: {$topArticle['views']}";?></li>
-                                <?php endforeach; ?>
+                                <?php $currentTopicsArticlesIds;?>
                             </ul>
                         </div>
                     </div>
@@ -60,7 +58,6 @@
             </div>
         </div>        
     </div>
-</body>
 
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

@@ -231,5 +231,47 @@ class Articles extends Model
         header("Location: /");
     }
     
+    /**
+     * 
+     * @param int $topicId
+     * @return array
+     *      */
+    public function getArticlesIdByTopicId(int $topicId) : array
+    {
+        $objs = [];
+        $list = [];
+        $ids = [];
+        
+        $conditions = [
+            'conditions' => ['topic_id=?',$topicId],
+            'select' => 'id'
+            ];
+        
+        $objs = self::find('all', $conditions);
+        
+        $list = $this->parseArrayOfDbObj($objs);
+        
+        foreach ($list as $l){
+            $ids[] = $l['id'];
+        }
+        
+        return $ids;
+    }
+    
+    public function getTopicIdByArticleId(int $articleId)  : int
+    {
+        $conditions = [
+            'conditions' => ['id=?',$articleId],
+            'select' => 'topic_id'
+            ];
+        
+        $attr = self::find('first', $conditions)->attributes();
+        
+        $id = $attr['topic_id'];
+        
+        return $id;
+        
+    }
+    
     
 }

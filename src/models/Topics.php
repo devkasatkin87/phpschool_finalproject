@@ -55,4 +55,20 @@ class Topics extends Model
         
         return $topics;
     }
+    
+    /**
+     * Service method which parse array of objects
+     * @param array $objs Array of objects
+     * @return array 
+     */
+    private function parseArrayOfDbObj(array $objs) : array
+    {
+        $list = [];
+        
+        foreach ($objs as $obj) {
+            $list[] = $obj->attributes();
+        }
+
+        return $list;
+    }
 }

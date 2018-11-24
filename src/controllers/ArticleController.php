@@ -31,7 +31,9 @@ class ArticleController
         $authorId = $article['author_id'];
         $author = $modelAuthors->getAuthorNameById($authorId);
         
-        $topArticles = $modelArticles->getTopArticlesByCurrentCategory(10, $topicId);
+        $currentTopicsArticlesIds = $modelArticles->getArticlesIdByTopicId($topicId);
+        
+        //$topArticles = $modelArticles->getTopArticlesByCurrentCategory(10, $topicId);
         
 //        require_once ROOT.'/src/components/client.php';
         
