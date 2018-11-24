@@ -48,10 +48,7 @@
                         <h4>Top 10 of articles:</h4>
                     </div>
                     <div class="row">
-                        <div class="Topcontent">
-                            <ul>
-                                <?php $currentTopicsArticlesIds;?>
-                            </ul>
+                        <div class="Topcontent" id="top10">
                         </div>
                     </div>
                 </div>

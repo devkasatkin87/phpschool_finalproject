@@ -5,10 +5,11 @@ function success(response){
         url: '/src/components/topArticles.php',
         data: response,
         success: function (data){
-            $("#test").append(data);
+            $("#top10").append(data);
         }
     });
-    $("#test").append(JSON.stringify(response));
+    //$("#test").append(response);
+    alert(JSON.stringify(response));
 }
 
 $(document).ready(function(){

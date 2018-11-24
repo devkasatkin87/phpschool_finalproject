@@ -11,12 +11,12 @@ use src\models\Articles;
 
 if (isset ($_POST['result'])){
     $ids = $_POST['result'];
-    echo "done";
 }
 $db = src\components\Db::connection();
 $model = new Articles();
 $keys = array_keys($ids);
 $el = 0;
+$articles = [];    
 foreach ($keys as $key){
     $top[$el]['id'] = $keys[$el];
     $top[$el]['views'] = $ids[$keys[$el]];
@@ -24,8 +24,9 @@ foreach ($keys as $key){
 }
 foreach ($top as $element){
     if ($element ==''){
-        return true;
+        brake;
     }
+    $articles = $model->getArticleTitleById($element['id']);
     $model->updateViews($element['id'], (int)$element['views']);
+    echo "<li><a href=\"/article/{$element['id']}\">$articles</a></li>";
 }
-return true;

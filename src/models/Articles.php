@@ -47,8 +47,24 @@ class Articles extends Model
         
         return $articleObj;
     }
-    
     /**
+     * 
+     * @param int $id
+     * @return string
+     */
+    public function getArticleTitleById(int $id)
+    {
+        $conditions = [
+            'conditions' => ['id=?', $id],
+            'select' => 'title'
+        ];
+        
+        $article = self::find('first', $conditions)->attributes();
+        
+        return $article['title'];
+    }
+
+        /**
      * @param int $top
      * @param int $topic_id
      * @return array
