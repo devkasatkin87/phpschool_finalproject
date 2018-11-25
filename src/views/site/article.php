@@ -7,7 +7,7 @@
  *  */
 ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="/web/js/service.js"></script>
+<script src="/web/js/serviceViews.js"></script>
 
     <p id="test">Response:</p>
     <div class="container">

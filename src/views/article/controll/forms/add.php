@@ -40,7 +40,7 @@
         <label for="img">Image</label>
         <input type="file" class="form-control-file" id="img">
     </div>
-    <input type="submit" name="submit" class="btn btn-primary" value="Add article">
+    <input id="add" type="submit" name="submit" class="btn btn-primary" value="Add article">
 </form>
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

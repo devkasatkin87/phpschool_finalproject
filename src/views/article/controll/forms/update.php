@@ -2,10 +2,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="title">
-            <h3>Add article:</h3>
+            <h3>Update article:</h3>
         </div>
     </div>
 </div>
+<div class="row"><div id="state" class="state"></div></div>
 <div class="row">
     <?php if (isset($errors)) :?>
         <ul>
@@ -15,7 +16,10 @@
         </ul>    
     <?php endif; ?>
 </div>
-<form action="#" method="post">
+<form id="form" action="#" method="post">
+    <div class="form-group">
+        <label>Article # <i id="article_id"><?= $article['id'];?></i></label>
+    </div>
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" value="<?= $article['title']; ?>">
@@ -42,5 +46,6 @@
     </div>
     <input type="submit" name="submit" class="btn btn-primary" value="Update article">
 </form>
+
 <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>
 

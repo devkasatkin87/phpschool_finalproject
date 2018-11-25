@@ -12,16 +12,21 @@ use src\models\Articles;
 if (isset ($_POST['result'])){
     $ids = $_POST['result'];
 }
+
 $db = src\components\Db::connection();
 $model = new Articles();
 $keys = array_keys($ids);
 $el = 0;
 $articles = [];    
+
 foreach ($keys as $key){
     $top[$el]['id'] = $keys[$el];
     $top[$el]['views'] = $ids[$keys[$el]];
     $el++;
 }
+
+$top = $model->sortingArticlesByViews($top);
+
 foreach ($top as $element){
     if ($element ==''){
         brake;

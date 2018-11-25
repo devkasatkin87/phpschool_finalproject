@@ -8,8 +8,6 @@ function success(response){
             $("#top10").append(data);
         }
     });
-    //$("#test").append(response);
-    alert(JSON.stringify(response));
 }
 
 $(document).ready(function(){

@@ -63,7 +63,6 @@ class Authors extends Model{
         $found = $this->getAuthorByName($authorName);
         
         if (isset($found)){
-            var_dump($found);
             $author = $found->attributes();
             $authorId = $author['id'];
             return $authorId;

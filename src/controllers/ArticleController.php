@@ -131,5 +131,4 @@ class ArticleController
         require_once ROOT.'/src/views/article/controll/index.php';
         return true;
     }
-    
 }

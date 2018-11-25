@@ -234,8 +234,8 @@ class Articles extends Model
                     'topic_id' => $topic
                 ]);
             
-            header("Location: /article/controll");
-            exit();
+//            header("Location: /article/controll");
+//            exit();
         }else{
             $errors[] = 'Errors in data!';
         }
@@ -297,6 +297,18 @@ class Articles extends Model
         return $id;
         
     }
-    
+        
+    /**
+     * @param array $articles
+     * @return array sorted
+     */
+    public function sortingArticlesByViews(array $articles)
+    {
+        usort($articles, function($a, $b){
+            return ($b['views'] - $a['views']);
+        });
+        
+        return $articles;
+    }
     
 }
