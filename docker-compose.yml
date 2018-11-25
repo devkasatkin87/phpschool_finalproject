@@ -28,6 +28,7 @@ services:
       links:
         - php-fpm1
         - php-fpm2
+        - redis
       ports:
        - "8080:80"
 
@@ -61,3 +62,7 @@ services:
         - PMA_HOST=mysql
       ports:
         - "8090:80"
+    
+    redis:
+      image: redis:alpine
+      container_name: myproject-redis
