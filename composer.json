@@ -10,7 +10,8 @@
     "require": {
         "fzaninotto/faker": "^1.8",
         "php-activerecord/php-activerecord": "^1.2",
-        "datto/json-rpc": "^5.0"
+        "datto/json-rpc": "^5.0",
+        "guzzlehttp/guzzle": "^6.3"
     },
     
     "autoload": {

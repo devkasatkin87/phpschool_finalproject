@@ -4,8 +4,7 @@ use src\components\Db;
 use src\models\Authors;
 use src\models\Articles;
 use src\models\Topics;
-use src\models\ArticlesToTopics;
-use src\models\ArticlesToAuthors;
+use Datto\JsonRpc\Client;
 
 class ArticleController 
 {
@@ -108,6 +107,15 @@ class ArticleController
             $date = date('Y-m-d', time());
             
             $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
+            
+            $client = new Client();
+            $client->query(1, 'updateArticle', [$id]);
+            $message = $client->encode();
+            
+            $guzzle = new GuzzleHttp\Client();
+            $send = $guzzle->post('http://0.0.0.0:8888/', ['body' => $message]);
+            $reply = $send->getBody();
+            echo "Response $reply" . PHP_EOL;
         }
         
         require_once ROOT.'/src/views/article/controll/forms/update.php';
