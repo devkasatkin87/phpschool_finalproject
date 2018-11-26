@@ -9,13 +9,12 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="/web/js/serviceViews.js"></script>
 
-    <p id="test">Response:</p>
     <div class="container">
         <div class="row">
             <div class="col-sm-9">
                 <div class="title text-center">
                     <h3>Article # <i id="article_id"><?= $article['id']; ?></i></h3>
-                    <p><?= $article['title']; ?></p>
+                    <h4><p><?= $article['title']; ?></p></h4>
                 </div>
             </div>
         </div>

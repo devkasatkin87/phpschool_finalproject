@@ -76,9 +76,24 @@ class Controller {
         
     }
     
+    /**
+     * @param $id
+     * @param $value
+     * @return bool
+     *      */
     public function getsetRecord($id, $value)
     {
         $this->connection->getset("article:$id", $value);
+        return true;
+    }
+    
+    /**
+     * @param $id
+     * @return bool
+     *      */
+    public function deleteRecord($id)
+    {
+        $this->connection->del("article:$id");
         return true;
     }
 }

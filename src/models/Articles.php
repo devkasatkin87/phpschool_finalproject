@@ -187,13 +187,10 @@ class Articles extends Model
                         'author_id' => $authorId,
                         'topic_id' => $topic,
             ]);
-            $message = 'Article has been added';
-            header("Location: /article/controll");
         } else {
-            $message = "Error in data";
         }
         
-        return $message;
+        return $article->id;
     }
     
     public function updateViews(int $id, int $views)

@@ -67,8 +67,11 @@ class ArticleController
             $image = 'image';
             $date = date('Y-m-d', time());
             
-            $result = $modelArticle->add($title, $content, $author, $topic, $date, $image);
-            
+            //$result - article Id
+            $id = $modelArticle->add($title, $content, $author, $topic, $date, $image);
+            //send to Service
+            $result = $this->sendMessageJson($id, "addArticle");
+
         }
         
         require_once ROOT.'/src/views/article/controll/forms/add.php';
@@ -108,14 +111,6 @@ class ArticleController
             
             $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
             
-//            //Send requests Datto\JsonRpc\Client
-//            $client = new Client();
-//            $client->query(1, 'updateArticle', [$id]);
-//            $message = $client->encode();
-//            
-//            $guzzle = new GuzzleHttp\Client();
-//            $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
-//            $reply = $send->getBody();
             $this->sendMessageJson($id, 'updateArticle');
         }
         
@@ -131,7 +126,8 @@ class ArticleController
         
         $modelArticle->remove($id);
         
-        //require_once ROOT.'/src/views/article/controll/forms/delete.php';
+        $this->sendMessageJson($id, "deleteArticle");
+        
         return true;
     }
     
@@ -145,7 +141,7 @@ class ArticleController
      * Send requests and get response from Service use Datto\JsonRpc\Client
      * @param int $id
      * @param string $method
-     * @return bool
+     * @return string
      */
     private function sendMessageJson(int $id, string $method)
     {

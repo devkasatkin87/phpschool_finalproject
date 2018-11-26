@@ -25,8 +25,11 @@ class TopArticles implements Evaluator
             case 'updateArticle':
                 $result = $this->updateArticle(...$arguments);
                 break;
-            case 'addArticles':
+            case 'addArticle':
                 $result = $this->addArticle(...$arguments);
+                break;
+            case 'deleteArticle':
+                $result = $this->deleteArticle(...$arguments);
                 break;
             default:
                 throw new MethodException();
@@ -70,6 +73,13 @@ class TopArticles implements Evaluator
         $redis = new Controller();
         
         $result = $redis->getsetRecord($id, 0);
+    }
+    
+    public function deleteArticle($id)
+    {
+        $redis = new Controller();
+        
+        $result = $redis->deleteRecord($id);
     }
     
 
