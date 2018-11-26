@@ -32,7 +32,7 @@ services:
 
     php-fpm:
       build: phpdocker/php-fpm
-      container_name: myproject-php-fpm
+      container_name: myproject-php
       working_dir: /application
       volumes:
         - ./:/application
@@ -48,3 +48,7 @@ services:
         - PMA_HOST=mysql
       ports:
         - "8090:80"
+
+    redis:
+      image: redis:alpine
+      container_name: redis

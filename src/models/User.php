@@ -3,7 +3,6 @@
 namespace src\models;
 
 use ActiveRecord\Model;
-use interfaces\Validate;
 
 
 class User extends Model 
@@ -91,9 +90,10 @@ class User extends Model
      *      */
     public static function auth($userId,$isAdmin) : bool
     {
-        //session_start();
-        $_SESSION['user'] = $userId;
-        $_SESSION['is_admin'] = $isAdmin;
+//        $_SESSION['user'] = $userId;
+//        $_SESSION['is_admin'] = $isAdmin;
+        
+       //session_write_close();
         
         return true;
         
@@ -185,14 +185,14 @@ class User extends Model
      */
     public static function checkLogged()
     {
-        //session_start();
-        if(isset($_SESSION['user'])){
-            
-            return $_SESSION['user'];
-        }
-        
-        header("Location: /user/login");
-        exit();
+//        //session_start();
+//        if(isset($_SESSION['user'])){
+//            
+//            return $_SESSION['user'];
+//        }
+//        
+//        header("Location: /user/login");
+//        exit();
     }
     
     /**
@@ -201,12 +201,11 @@ class User extends Model
      */
     public static function checkAdmin()
     {
-        //session_start();
-        if (isset($_SESSION['is_admin'])){
-            return $_SESSION['is_admin'];
-        }
-        
-        return false;
+//        if (isset($_SESSION['is_admin'])){
+//            return $_SESSION['is_admin'];
+//        }
+//        
+//        return false;
     }
     
     /**
@@ -215,12 +214,11 @@ class User extends Model
      *      */
     public static function isGuest() : bool
     {
-        //session_start();
-        if (isset($_SESSION['user']))
-        {
-            return false;
-        }
-        
-        return true;
+//        if (isset($_SESSION['user']))
+//        {
+//            return false;
+//        }
+//        
+//        return true;
     }
 }
