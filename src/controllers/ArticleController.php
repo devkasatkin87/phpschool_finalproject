@@ -108,14 +108,15 @@ class ArticleController
             
             $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
             
-            $client = new Client();
-            $client->query(1, 'updateArticle', [$id]);
-            $message = $client->encode();
-            
-            $guzzle = new GuzzleHttp\Client();
-            $send = $guzzle->post('http://0.0.0.0:8888/', ['body' => $message]);
-            $reply = $send->getBody();
-            echo "Response $reply" . PHP_EOL;
+//            //Send requests Datto\JsonRpc\Client
+//            $client = new Client();
+//            $client->query(1, 'updateArticle', [$id]);
+//            $message = $client->encode();
+//            
+//            $guzzle = new GuzzleHttp\Client();
+//            $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
+//            $reply = $send->getBody();
+            $this->sendMessageJson($id, 'updateArticle');
         }
         
         require_once ROOT.'/src/views/article/controll/forms/update.php';
@@ -137,6 +138,26 @@ class ArticleController
     public function actionControll()
     {
         require_once ROOT.'/src/views/article/controll/index.php';
+        return true;
+    }
+    
+    /**
+     * Send requests and get response from Service use Datto\JsonRpc\Client
+     * @param int $id
+     * @param string $method
+     * @return bool
+     */
+    private function sendMessageJson(int $id, string $method)
+    {
+        
+        $client = new Client();
+        $client->query(1, $method, [$id]);
+        $message = $client->encode();
+
+        $guzzle = new GuzzleHttp\Client();
+        $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
+        $reply = $send->getBody();
+        
         return true;
     }
 }

@@ -1,0 +1,21 @@
+{
+"name": "devkasatkin87/topgenerator",
+    "description": "top article generator",
+    "authors": [
+        {
+            "name": "devkasatkin87",
+            "email": "devkasatkin87@gmail.com"
+        }
+    ],
+    
+    "require":{
+        "datto/json-rpc": "^5.0",
+        "predis/predis": "^1.1"
+    },
+    
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    }
+}

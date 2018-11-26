@@ -18,14 +18,9 @@ class GenerateController
         
         $faker = Factory::create();
         
-//        $resultDbTopics = $this->setArticlesToDb($db, $faker);
-        
-//        $this->generateTableArticlesToTopics($db);
-//        
-//        $this->updateTableArtirclesToTopics($db);
-        
-//        $this->generateTableArticlesToAuthors($db);
-        
+          $resultDbTopics = $this->setArticlesToDb($db, $faker);  
+//        $resultDbAuthors = $this->setAuthorsToDb($db, $faker);
+//        $resultDbTopics = $this->setTopicsToDb($db, $faker);
         
         echo "The Database has been generating!";
         
@@ -40,7 +35,7 @@ class GenerateController
             
             $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 5000; $i++) {
+            for ($i = 0; $i < 1000; $i++) {
 
                 $stm = $db->prepare($sql);
                 
@@ -48,9 +43,9 @@ class GenerateController
                 $date = $faker->year;
                 $content = $faker->text;
                 $img = $faker->image();
-                $views = mt_rand(0,50000);
-                $topicId = mt_rand(1,40);
-                $authorId = mt_rand(1,4034);
+                $views = mt_rand(0,1000);
+                $topicId = mt_rand(1,30);
+                $authorId = mt_rand(1,5000);
 
                 $stm->bindParam(':title', $title);
                 $stm->bindParam(':date', $date);
@@ -67,83 +62,48 @@ class GenerateController
         return false;
     }
     
-    private function generateTableArticlesToTopics ($db)
+    private function setAuthorsToDb($db, $faker)
     {
         if (is_object($db)){
             
-            $sqlGetId = "SELECT id FROM articles";
+            $sql = ("INSERT INTO authors (first_name, second_name) VALUES (:first, :second)");
             
-            $stmt = $db->query($sqlGetId);
-            //Установка fetch mode
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $ids = $stmt->fetchAll();
+            for ($i = 0; $i < 5000; $i++) {
 
-            $sqlSetId = "INSERT INTO articles_to_topics (article_id, topic_id) VALUES (:article, :topic)";
+                $stm = $db->prepare($sql);
+                
+                $first = $faker->firstName;
+                $second = $faker->lastName;
 
-            foreach ($ids as $id){
-                $topic = mt_rand(1, 36);
-                $stm = $db->prepare($sqlSetId);
-                $stm->bindParam(':article', $id['id']);
-                $stm->bindParam(':topic', $topic);                
+                $stm->bindParam(':first', $first);
+                $stm->bindParam(':second', $second);
+
                 $stm->execute();
             }
+            return true;
         }
+        return false;
     }
     
-        private function generateTableArticlesToAuthors ($db)
+    private function setTopicsToDb($db,$faker)
     {
         if (is_object($db)){
             
-            $sqlGetId = "SELECT id FROM articles";
+            $sql = ("INSERT INTO topics (title) VALUES (:title)");
             
-            $stmt = $db->query($sqlGetId);
-            //Установка fetch mode
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $ids = $stmt->fetchAll();
-            
-//            var_dump($ids);die;
+            for ($i = 0; $i < 30; $i++) {
 
-            $sqlSetId = "INSERT INTO articles_to_authors (article_id, author_id) VALUES (:article, :author)";
+                $stm = $db->prepare($sql);
+                
+                $title = $faker->company;
 
-//            $author = mt_rand(1, 69);
-//            var_dump($author);
-//            $stm = $db->prepare($sqlSetId);
-//            var_dump($stm);
-//            $id = 3;
-//            $stm->bindParam(':article', $id);
-//            $stm->bindParam(':author', $author);
-//            $stm->execute();
+                $stm->bindParam(':title', $title);
 
-            foreach ($ids as $id){
-                $author = mt_rand(1, 69);
-                $stm = $db->prepare($sqlSetId);
-                $stm->bindParam(':article', $id['id']);
-                $stm->bindParam(':author', $author);                
                 $stm->execute();
             }
+            return true;
         }
-    }
-    
-    public function updateTableArtirclesToTopics ($db) 
-    {
-        if (is_object($db)){
-            
-            $sqlGetcountArticles = "SELECT topic_id, COUNT(article_id) FROM articlesToTopics GROUP BY topic_id";
-            
-            $stmt = $db->query($sqlGetcountArticles);
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $countArticles = $stmt->fetchAll();
-            
-            $sqlUpdateTopicsTable = "UPDATE topics SET articles_count = :count WHERE id = :id ";
-            
-            foreach ($countArticles as $countArticle) {
-                $stmt = $db->prepare($sqlUpdateTopicsTable);
-                $stmt->bindParam(':count', $countArticle['COUNT(article_id)']);
-                $stmt->bindParam(':id', $countArticle['topic_id']);
-                $stmt->execute();
-            }
-            
-        }
+        return false;
     }
     
 }
