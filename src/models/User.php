@@ -90,8 +90,8 @@ class User extends Model
      *      */
     public static function auth($userId,$isAdmin) : bool
     {
-//        $_SESSION['user'] = $userId;
-//        $_SESSION['is_admin'] = $isAdmin;
+        $_SESSION['user'] = $userId;
+        $_SESSION['is_admin'] = $isAdmin;
         
        //session_write_close();
         
@@ -185,14 +185,13 @@ class User extends Model
      */
     public static function checkLogged()
     {
-//        //session_start();
-//        if(isset($_SESSION['user'])){
-//            
-//            return $_SESSION['user'];
-//        }
-//        
-//        header("Location: /user/login");
-//        exit();
+        if(isset($_SESSION['user'])){
+            
+            return $_SESSION['user'];
+        }
+        
+        header("Location: /user/login");
+        exit();
     }
     
     /**
@@ -201,11 +200,11 @@ class User extends Model
      */
     public static function checkAdmin()
     {
-//        if (isset($_SESSION['is_admin'])){
-//            return $_SESSION['is_admin'];
-//        }
-//        
-//        return false;
+        if (isset($_SESSION['is_admin'])){
+            return $_SESSION['is_admin'];
+        }
+        
+        return false;
     }
     
     /**
@@ -214,11 +213,11 @@ class User extends Model
      *      */
     public static function isGuest() : bool
     {
-//        if (isset($_SESSION['user']))
-//        {
-//            return false;
-//        }
-//        
-//        return true;
+        if (isset($_SESSION['user']))
+        {
+            return false;
+        }
+        
+        return true;
     }
 }
