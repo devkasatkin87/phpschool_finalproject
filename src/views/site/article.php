@@ -18,10 +18,12 @@
                 </div>
             </div>
         </div>
+        <?php if(src\models\User::checkAdmin()): ?>
         <div class="row">
             <a href="/article/controll/update/<?= $article['id'];?>" class="btn btn-outline-secondary">Update article</a>
             <a href="/article/controll/delete/<?= $article['id'];?>" class=" ml-2 btn btn-outline-secondary">Delete article</a>
         </div>
+        <?php endif; ?>
         <div class="row">
             <div class="col-md-9">
                 <div class="row">

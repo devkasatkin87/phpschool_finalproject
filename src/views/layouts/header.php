@@ -1,3 +1,7 @@
+<?php 
+    use src\models\User;
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,18 +22,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <?php if(User::isGuest()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/login">Sign In</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/register">Sign Up</a>
                         </li>
+                    <?php endif; ?>
+                    <?php if(User::checkAdmin()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/office">Personal office</a>
                         </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['user'])): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/user/logout">Sign Out</a>
                         </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

@@ -10,16 +10,16 @@ require_once __DIR__.'/vendor/autoload.php';
 use src\components\router\RouterControl;
 use src\components\router\RouterEntity;
 use src\components\redis\RedisSessionHandler;
+use Predis\Client;
 
 define('ROOT', dirname('__FILE__'));
 
-$sessHandler = new RedisSessionHandler();
-
-session_set_save_handler($sessHandler);
+//Define session storage 
+ini_set('session.save_handler', 'redis');
+ini_set('session.save_path', "tcp://redis:6379");
 
 session_start();
 
-var_dump($_SESSION['user']);
 
 //Define path to routes (/src/config)
 $routesPath = __DIR__.'/src/config/routes.php';
