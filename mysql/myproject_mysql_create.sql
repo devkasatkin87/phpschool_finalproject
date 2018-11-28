@@ -26,7 +26,7 @@ CREATE TABLE `topics` (
 CREATE TABLE `users` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`username` varchar(56) NOT NULL,
-	`password` varchar(56) NOT NULL,
+	`password` varchar(255) NOT NULL,
 	`is_admin` bool NOT NULL,
 	PRIMARY KEY (`id`)
 );

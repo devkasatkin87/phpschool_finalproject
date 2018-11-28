@@ -21,7 +21,6 @@ class GenerateController
           $resultDbTopics = $this->setArticlesToDb($db, $faker);  
 //        $resultDbAuthors = $this->setAuthorsToDb($db, $faker);
 //        $resultDbTopics = $this->setTopicsToDb($db, $faker);
-        
         echo "The Database has been generating!";
         
         return true;
@@ -35,12 +34,12 @@ class GenerateController
             
             $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 1; $i++) {
 
                 $stm = $db->prepare($sql);
                 
                 $title = $faker->sentence;
-                $date = $faker->year;
+                $date = $this->randomDate('2018-11-29', '2000-11-29');
                 $content = $faker->text;
                 $img = $faker->image();
                 $views = mt_rand(0,1000);
@@ -56,6 +55,8 @@ class GenerateController
                 $stm->bindParam(':author_id', $authorId);
 
                 $stm->execute();
+                
+                $id = $i;
             }
             return true;
         }
@@ -106,4 +107,17 @@ class GenerateController
         return false;
     }
     
+    // Find a randomDate between $start_date and $end_date
+    private function randomDate($start_date, $end_date) {
+        // Convert to timetamps
+        $min = strtotime($start_date);
+        $max = strtotime($end_date);
+
+        // Generate random number using above bounds
+        $val = rand($min, $max);
+
+        // Convert back to desired date format
+        return date('Y-m-d', $val);
+    }
+
 }

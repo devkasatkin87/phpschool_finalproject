@@ -14,12 +14,11 @@ use Predis\Client;
 
 define('ROOT', dirname('__FILE__'));
 
-//Define session storage 
-ini_set('session.save_handler', 'redis');
-ini_set('session.save_path', "tcp://redis:6379");
+$sessionParams = require_once __DIR__.'/src/components/redis/storage/config.php';
 
-session_start();
+$session = new src\components\redis\storage\Session($sessionParams);
 
+$session->start();
 
 //Define path to routes (/src/config)
 $routesPath = __DIR__.'/src/config/routes.php';
