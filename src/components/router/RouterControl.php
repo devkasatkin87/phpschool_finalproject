@@ -33,9 +33,13 @@ class RouterControl {
     {
         $uri = $this->getURI();
         
-        $this->setRouting($uri, $this->routerEntity->getRoutes());
+        $result = $this->setRouting($uri, $this->routerEntity->getRoutes());
         
-        return true;
+        if ($result){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public function setRouting($uri, $routes)
@@ -59,7 +63,7 @@ class RouterControl {
                 $result = call_user_func_array(array($controllerObject,$actionName), $parameters);
                 
                 if($result != false){
-                    break;
+                    return true;
                 }
             }
         }

@@ -26,5 +26,7 @@ $routesPath = __DIR__.'/src/config/routes.php';
 //RUN Application
 $router = new RouterControl(new RouterEntity($routesPath));
 
-$router->run();
+if (!$router->run()){
+    echo "<h2>Error 404. <i>Page not found!</i></h2>";
+}
 
