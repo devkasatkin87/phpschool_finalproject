@@ -77,8 +77,9 @@ class ArticleController
             $image = new src\components\loader\LoaderHandler(
                     new \src\components\loader\LoaderEntity($imageName, $imageType, $imagePath)
                     );
+            $image = $image->save();
             
-            var_dump($image);die;
+            //var_dump($image);die;
             
             //$result - article Id
             $id = $modelArticle->add($title, $content, $author, $topic, $date, $image);

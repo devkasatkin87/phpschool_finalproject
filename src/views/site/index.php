@@ -19,7 +19,7 @@
         </div>
       
         <div class="row">
-            <div class="content content_articles col-md-3">
+            <div class="content content_articles col-md-5">
                 <div class="row">
                     <h4 class="text-center">Articles</h4>
                 </div>
@@ -36,7 +36,7 @@
                     <div id="loadNextArticles" type="button" class="btn btn-outline-secondary">Show next articles</div>
                 </div>
             </div>
-            <div class="content content_authors col-md-3">
+            <div class="content content_authors col-md-2">
                 <div class="row"><h4 class="text-center">Tags: Authors</h4></div>
                 <div class='row'>
                     <ol  id="authors">
@@ -66,7 +66,7 @@
                     <div id="loadNextTopics" type="button" class="btn btn-outline-secondary">Show next topics</div>
                 </div>
             </div>
-            <div class="content content_datePubleshed col-md-3">
+            <div class="content content_datePubleshed col-md-2">
                 <div class="row">
                     <h4>Tags: Date of publication</h4>
                 </div>

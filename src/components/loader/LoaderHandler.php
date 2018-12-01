@@ -11,22 +11,37 @@ class LoaderHandler
         $this->image = $image;
     }
     
-    public function save(string $filePath, string $defaulExtension, $error)
+    /**
+     * @param string $filePath
+     * @param string $defaultExtension
+     * @return string 
+     *      */
+    public function save()
     {
         $message = '';
         
-        $message = $this->checkErrors($error, $filePath);
+        $message = $this->checkErrors($this->image->getError(), $this->image->getPath());
+        
+        if (!empty($message)){
+            return $message;
+        }
+
+        $message = $this->checkSize($this->image->getPath());
+        if(!is_int($message)){
+            return $message;
+        }
         
         // Сгенерируем новое имя файла на основе MD5-хеша
-        $name = md5_file($filePath);
+        $name = md5_file($this->image->getPath());
         // Сгенерируем расширение файла на основе типа картинки
-        $extension = image_type_to_extension($defaulExtension);
+        $extension = image_type_to_extension($message);
         // Сократим .jpeg до .jpg
         $format = str_replace('jpeg', 'jpg', $extension);
+        $newPath = ROOT . '/web/images/' . $name . $format;
         // Переместим картинку с новым именем и расширением в папку /pics
-        if (move_uploaded_file($filePath, ROOT . '/web/images/' . $name . $format)) {
-            $message = "Изображение успешно добавлено";
-            return $message;
+        if ($res = move_uploaded_file($this->image->getPath(), $newPath)) {
+            var_dump($res);
+            return $newPath;
         }else {
             $message = "При сохранении произошла ошибка";
             return $message;
@@ -38,7 +53,7 @@ class LoaderHandler
      * @param string $filePath
      * @return string
      */
-    public function getSize(string $filePath)
+    private function checkSize(string $filePath)
     {
         $error = '';
         
@@ -49,13 +64,22 @@ class LoaderHandler
         $limitWidth = 1280;
         $limitHeight = 768;
         // Проверим нужные параметры
-        if (filesize($filePath) > $limitBytes)
+        if (filesize($filePath) > $limitBytes){
             $error = 'Размер изображения не должен превышать 5 Мбайт.';
-        if ($image[1] > $limitHeight)
+            return $error;
+        }
+            
+        if ($image[1] > $limitHeight){
             $error = 'Высота изображения не должна превышать 768 точек.';
-        if ($image[0] > $limitWidth)
+            return $error;
+        }
+            
+        if ($image[0] > $limitWidth){
             $error = 'Ширина изображения не должна превышать 1280 точек.';
-        return $error;
+            return $error;
+        }
+            
+        return $image[2];
     }
 
         /**
@@ -64,12 +88,12 @@ class LoaderHandler
      * @param string $filePath
      * @return string
      */
-    private function checkErrors(string $errorCode, string $filePath)
+    private function checkErrors($errorCode, string $filePath)
     {
-        $outputMessage = true;
+        $outputMessage = '';
         
         // Проверим на ошибки
-        if ($errorCode !== UPLOAD_ERR_OK || !is_uploaded_file($filePath)) {
+        if ($errorCode === UPLOAD_ERR_OK || !is_uploaded_file($filePath)) {
 
             // Массив с названиями ошибок
             $errorMessages = [
@@ -82,16 +106,10 @@ class LoaderHandler
                 UPLOAD_ERR_EXTENSION => 'PHP-расширение остановило загрузку файла.',
             ];
 
-            // Зададим неизвестную ошибку
-            $unknownMessage = 'При загрузке файла произошла неизвестная ошибка.';
-
-            // Если в массиве нет кода ошибки, скажем, что ошибка неизвестна
-            $outputMessage = isset($errorMessages[$errorCode]) ? $errorMessages[$errorCode] : $unknownMessage;
-
             // Выведем название ошибки
            return $outputMessage;
         }
-        
+        echo "no error";
         // Создадим ресурс FileInfo
         $fi = finfo_open(FILEINFO_MIME_TYPE);
         // Получим MIME-тип

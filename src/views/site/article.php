@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="content">
                         <div class="images">
-                            <img src="<?=$article['img'];?>" alt="picture" style="width: 40%">
+                            <img src="/<?=$article['img'];?>" alt="picture">
                         </div>
                         <div class="text"><?= $article['content']; ?></div>
                     </div>
