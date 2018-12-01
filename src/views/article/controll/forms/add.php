@@ -7,15 +7,13 @@
     </div>
 </div>
 <div class="row">
-    <?php if (isset($result)) :?>
-        <ul>
-            <?php foreach ($result as $message): ?>
-            <li><?= $message; ?></li>
-            <?php endforeach; ?>
-        </ul>    
-    <?php endif; ?>
+    <div class="result_messages">
+        <?php if(isset($message)): ?>
+            <p><?= $message; ?></p>
+        <?php endif; ?>
+    </div>
 </div>
-<form action="#" method="post">
+<form enctype="multipart/form-data" action="#" method="post">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
@@ -38,7 +36,7 @@
     </div>
     <div class="form-group">
         <label for="img">Image</label>
-        <input type="file" class="form-control-file" id="img">
+        <input type="file" class="form-control-file" id="img" name="image">
     </div>
     <input id="add" type="submit" name="submit" class="btn btn-primary" value="Add article">
 </form>

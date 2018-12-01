@@ -231,11 +231,11 @@ class Articles extends Model
                     'topic_id' => $topic
                 ]);
             
-//            header("Location: /article/controll");
-//            exit();
         }else{
             $errors[] = 'Errors in data!';
         }
+        
+        return true;
         
     }
     
@@ -306,6 +306,20 @@ class Articles extends Model
         });
         
         return $articles;
+    }
+    
+    public function getTopicsByArticles($offset)
+    {
+        $sql = "SELECT COUNT(*), topics.title FROM articles "
+                . "JOIN topics ON articles.topic_id=topics.id "
+                . "GROUP BY topic_id ORDER BY `COUNT(*)` "
+                . "DESC LIMIT 10 OFFSET $offset";
+        
+        $objs = self::find_by_sql($sql);
+        
+        $list = $this->parseArrayOfDbObj($objs);
+        //var_dump($list);die;
+        return $list;
     }
     
 }

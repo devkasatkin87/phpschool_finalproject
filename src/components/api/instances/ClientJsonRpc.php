@@ -4,6 +4,7 @@ namespace src\components\api\instances;
 
 use Datto\JsonRpc\Client;
 
+
 class ClientJsonRpc {
     
     public static $client;
@@ -25,5 +26,25 @@ class ClientJsonRpc {
         
         return $message;
 
+    }
+    
+    /**
+     * Send requests and get response from Service use Datto\JsonRpc\Client
+     * @param int $id
+     * @param string $method
+     * @return string
+     */
+    public static function sendMessageId(int $id, string $method)
+    {
+        
+        $client = new Client();
+        $client->query(1, $method, [$id]);
+        $message = $client->encode();
+
+        $guzzle = new \GuzzleHttp\Client;
+        $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
+        $reply = $send->getBody();
+        
+        return true;
     }
 }

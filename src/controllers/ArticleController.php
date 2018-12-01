@@ -51,7 +51,7 @@ class ArticleController
         $content = '';
         $date = '';
         $img = '';
-        $errors = [];
+        $message = '';
 
         $modelTopics = new Topics();
         $modelArticle = new Articles();
@@ -66,12 +66,29 @@ class ArticleController
             $content = $_POST['content'];
             $image = 'image';
             $date = date('Y-m-d', time());
+            $image = $_FILES['image'];
+            
+            $imageName = $_FILES['image']['name'];
+            $imageType = $_FILES['image']['type'];
+            $imagePath = $_FILES['image']['tmp_name'];
+            $imageError = $_FILES['image']['error'];
+            $imageSize = $_FILES['image']['size'];
+            
+            $image = new src\components\loader\LoaderHandler(
+                    new \src\components\loader\LoaderEntity($imageName, $imageType, $imagePath)
+                    );
+            
+            var_dump($image);die;
             
             //$result - article Id
             $id = $modelArticle->add($title, $content, $author, $topic, $date, $image);
             //send to Service
-            $result = $this->sendMessageJson($id, "addArticle");
-
+            $result = \src\components\api\instances\ClientJsonRpc::sendMessageId($id, "addArticle");
+            if (isset($result)){
+                $message = "Статья успешно добавлена";
+            }else {
+                $message = "Ошибка добавления статьи";
+            }
         }
         
         require_once ROOT.'/src/views/article/controll/forms/add.php';
@@ -111,7 +128,12 @@ class ArticleController
             
             $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
             
-            $this->sendMessageJson($id, 'updateArticle');
+            \src\components\api\instances\ClientJsonRpc::sendMessageId($id, 'updateArticle');
+            if (isset($result)){
+                $message = "Статья успешно откорректирована";
+            }else {
+                $message = "Ошибка корректировки статьи";
+            }
         }
         
         require_once ROOT.'/src/views/article/controll/forms/update.php';
@@ -128,32 +150,14 @@ class ArticleController
         
         $this->sendMessageJson($id, "deleteArticle");
         
+        $message = "Статья успешно удалена";
+        
         return true;
     }
     
     public function actionControll()
     {
         require_once ROOT.'/src/views/article/controll/index.php';
-        return true;
-    }
-    
-    /**
-     * Send requests and get response from Service use Datto\JsonRpc\Client
-     * @param int $id
-     * @param string $method
-     * @return string
-     */
-    private function sendMessageJson(int $id, string $method)
-    {
-        
-        $client = new Client();
-        $client->query(1, $method, [$id]);
-        $message = $client->encode();
-
-        $guzzle = new GuzzleHttp\Client();
-        $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
-        $reply = $send->getBody();
-        
         return true;
     }
 }

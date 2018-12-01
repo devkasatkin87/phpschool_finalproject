@@ -57,7 +57,7 @@
                     <ol  id="topics">
                         <?php foreach ($topicsList as $topic): ?>
                             <li>
-                                <?= $topic['title']; ?>
+                                <?= $topic['title']; ?> <i>(<?= $topic['count(*)'];?>)</i>
                             </li>
                         <?php endforeach; ?>
                     </ol>

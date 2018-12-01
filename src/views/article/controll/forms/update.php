@@ -8,13 +8,11 @@
 </div>
 <div class="row"><div id="state" class="state"></div></div>
 <div class="row">
-    <?php if (isset($errors)) :?>
-        <ul>
-            <?php foreach ($errors as $error): ?>
-            <li><?= $error; ?></li>
-            <?php endforeach; ?>
-        </ul>    
-    <?php endif; ?>
+    <div class="result_messages">
+        <?php if(isset($message)): ?>
+            <p><?= $message; ?></p>
+        <?php endif; ?>
+    </div>
 </div>
 <form id="form" action="#" method="post">
     <div class="form-group">

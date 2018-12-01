@@ -27,8 +27,8 @@ class Topics extends Model
 
         return $list;
     }
-    
-    /**
+
+        /**
      * 
      * @param int $id
      * @return string 

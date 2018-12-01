@@ -34,7 +34,7 @@ class GenerateController
             
             $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 1; $i++) {
+            for ($i = 0; $i < 1800; $i++) {
 
                 $stm = $db->prepare($sql);
                 
@@ -42,7 +42,7 @@ class GenerateController
                 $date = $this->randomDate('2018-11-29', '2000-11-29');
                 $content = $faker->text;
                 $img = $faker->image();
-                $views = mt_rand(0,1000);
+                $views = 1;
                 $topicId = mt_rand(1,30);
                 $authorId = mt_rand(1,5000);
 
@@ -56,7 +56,6 @@ class GenerateController
 
                 $stm->execute();
                 
-                $id = $i;
             }
             return true;
         }
@@ -118,6 +117,26 @@ class GenerateController
 
         // Convert back to desired date format
         return date('Y-m-d', $val);
+    }
+    
+    /**
+     * Send requests and get response from Service use Datto\JsonRpc\Client
+     * @param int $id
+     * @param string $method
+     * @return string
+     */
+    private function sendMessageJson(int $id, string $method)
+    {
+        
+        $client = new Client();
+        $client->query(1, $method, [$id]);
+        $message = $client->encode();
+
+        $guzzle = new GuzzleHttp\Client();
+        $send = $guzzle->post('http://topgenerator-webserver/', ['body' => $message]);
+        $reply = $send->getBody();
+        
+        return true;
     }
 
 }

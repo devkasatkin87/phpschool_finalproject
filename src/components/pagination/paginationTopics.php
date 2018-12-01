@@ -15,7 +15,7 @@ $offset = $_POST['numTopics'];
 if (is_numeric($offset)){
     $db = Db::connection();
 
-    $model = new Topics();
+    $model = new \src\models\Articles();
 
     getAdditionalTopics($model, $offset);
 
@@ -27,12 +27,12 @@ if (is_numeric($offset)){
  * @param int $offset 
  * @return void
  *  */
-function getAdditionalTopics(Topics $model, int $offset) : void
+function getAdditionalTopics(\src\models\Articles $model, int $offset) : void
 {
-    $topicsList = $model->getTopics($offset);
+    $topicsList = $model->getTopicsByArticles($offset);
 
     foreach ($topicsList as $topic){
         $offset++;
-        echo "<li>{$topic['title']}</li>";
+        echo "<li>{$topic['title']} <i>({$topic['count(*)']})</i> </li>";
     }
 }
