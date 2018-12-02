@@ -9,8 +9,6 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use src\components\router\RouterControl;
 use src\components\router\RouterEntity;
-use src\components\redis\RedisSessionHandler;
-use Predis\Client;
 
 define('ROOT', dirname('__FILE__'));
 
