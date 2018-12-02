@@ -35,3 +35,7 @@ ALTER TABLE `articles` ADD CONSTRAINT `articles_fk0` FOREIGN KEY (`topic_id`) RE
 
 ALTER TABLE `articles` ADD CONSTRAINT `articles_fk1` FOREIGN KEY (`author_id`) REFERENCES `authors`(`id`);
 
+CREATE INDEX topic_id ON articles(topic_id);
+CREATE INDEX author_id ON articles(author_id);
+CREATE INDEX date_published ON articles(date_published);
+

@@ -18,7 +18,7 @@ class GenerateController
         
         $faker = Factory::create();
         
-//          $resultDbTopics = $this->setArticlesToDb($db, $faker);  
+          $resultDbTopics = $this->setArticlesToDb($db, $faker);  
 //        $resultDbAuthors = $this->setAuthorsToDb($db, $faker);
 //        $resultDbTopics = $this->setTopicsToDb($db, $faker);
         echo "The Database has been generating!";
@@ -46,7 +46,7 @@ class GenerateController
             
             $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 1800; $i++) {
+            for ($i = 0; $i < 1000; $i++) {
 
                 $stm = $db->prepare($sql);
                 
@@ -67,6 +67,10 @@ class GenerateController
                 $stm->bindParam(':author_id', $authorId);
 
                 $stm->execute();
+                
+                $id = $db->lastInsertId();
+                
+                $res = $this->sendMessageJson($id, "addArticle");
                 
             }
             return true;
@@ -141,7 +145,7 @@ class GenerateController
     private function sendMessageJson(int $id, string $method)
     {
         
-        $client = new Client();
+        $client = new Datto\JsonRpc\Client();
         $client->query(1, $method, [$id]);
         $message = $client->encode();
 

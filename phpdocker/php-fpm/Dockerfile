@@ -8,3 +8,5 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get -y --no-install-recommends install  php7.2-mysql php-xdebug \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+RUN apt-get update && apt-get install php7.2-redis
