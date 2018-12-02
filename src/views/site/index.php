@@ -13,31 +13,30 @@
             <!--Title-->
             <div class="title col-sm-12">
                 <h1 class="text-center">
-                    Main Page
+                    Главная страница
                 </h1>
             </div><!--end Title-->
         </div>
-      
         <div class="row">
-            <div class="content content_articles col-md-5">
-                <div class="row">
-                    <h4 class="text-center">Articles</h4>
-                </div>
-                <div class="row">
+            <div class="content content_articles col-md-12">
+                    <h4 class="text-center">Каталог статей</h4>
+                    <div class="row" style="background: #f9f8f8">
                     <ol id="articles">
                         <?php foreach ($articlesList as $article): ?>
                             <li>
-                                <a href="/article/<?= $article['id'] ?>"><?= $article['title']; ?></a>
+                                <a class="badge badge-light" href="/article/<?= $article['id'] ?>"><h5><?= $article['title']; ?></h5></a>
                             </li>
                         <?php endforeach; ?>
                     </ol>
                 </div>
                 <div class="row">
-                    <div id="loadNextArticles" type="button" class="btn btn-outline-secondary">Show next articles</div>
+                    <div id="loadNextArticles" type="button" class="btn btn-outline-secondary">+ Статьи</div>
                 </div>
             </div>
-            <div class="content content_authors col-md-2">
-                <div class="row"><h4 class="text-center">Tags: Authors</h4></div>
+        </div>
+        <div class="row">
+            <div class="content content_authors col-md-4">
+                <div class="row"><h4 class="text-center">Облако тегов: Авторы</h4></div>
                 <div class='row'>
                     <ol  id="authors">
                         <?php foreach ($authorsList as $author): ?>
@@ -47,12 +46,10 @@
                         <?php endforeach; ?>
                     </ol>
                 </div>
-                <div class="row">
-                    <div id="loadNextAuthors" type="button" class="btn btn-outline-secondary">Show next authors</div>
-                </div>
+                    <div id="loadNextAuthors" type="button" class="btn btn-outline-secondary">+ Авторы</div>
             </div>
-            <div class="content content_topics col-md-3">
-                <div class="row"><h4 class="text-center">Tags: Topics</h4></div>
+            <div class="content content_topics col-md-4">
+                <div class="row"><h4 class="text-center">Облако тегов: Темы</h4></div>
                 <div class='row'>
                     <ol  id="topics">
                         <?php foreach ($topicsList as $topic): ?>
@@ -62,13 +59,11 @@
                         <?php endforeach; ?>
                     </ol>
                 </div>
-                <div class="row">
-                    <div id="loadNextTopics" type="button" class="btn btn-outline-secondary">Show next topics</div>
-                </div>
+                    <div id="loadNextTopics" type="button" class="btn btn-outline-secondary">+ темы</div>
             </div>
-            <div class="content content_datePubleshed col-md-2">
+            <div class="content content_datePubleshed col-md-4">
                 <div class="row">
-                    <h4>Tags: Date of publication</h4>
+                    <h4>Облако тегов: Дата публикации</h4>
                 </div>
                 <div class="row">
                     <ol  id="dates">
@@ -79,9 +74,7 @@
                         <?php endforeach; ?>
                     </ol>    
                 </div>
-                <div class="row">
-                    <div id="loadNextDates" type="button" class="btn btn-outline-secondary">Show next dates</div>
-                </div>
+                    <div id="loadNextDates" type="button" class="btn btn-outline-secondary">+ Даты</div>
             </div>
         </div>
     <?php require_once ROOT.'/src/views/layouts/footer.php'; ?>

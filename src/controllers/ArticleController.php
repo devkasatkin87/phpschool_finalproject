@@ -58,36 +58,41 @@ class ArticleController
         $modelAuthors = new Authors();
         
         $topics = $modelTopics->getAllTopics();
-        
+
         if(isset($_POST['submit'])){
             $title = $_POST['title'];
             $author = $_POST['author'];
             $topic = $_POST['topic'];
             $content = $_POST['content'];
-            $image = 'image';
             $date = date('Y-m-d', time());
             $image = $_FILES['image'];
             
-            $imageName = $_FILES['image']['name'];
-            $imageType = $_FILES['image']['type'];
-            $imagePath = $_FILES['image']['tmp_name'];
-            $imageError = $_FILES['image']['error'];
-            $imageSize = $_FILES['image']['size'];
-            
-            $image = new src\components\loader\LoaderHandler(
-                    new \src\components\loader\LoaderEntity($imageName, $imageType, $imagePath)
-                    );
-            $image = $image->save();
-            
-            //var_dump($image);die;
+            if (empty($image['error'])){
+                $imageName = $image['name'];
+                $imageType = $image['type'];
+                $imagePath = $image['tmp_name'];
+                $imageError = $image['error'];
+                $imageSize = $image['size'];
+
+                $imageHandl = new src\components\loader\LoaderHandler(
+                        new \src\components\loader\LoaderEntity($imageName, $imageType, $imagePath)
+                        );
+                $imageHandl = $imageHandl->save();
+            }else {
+                $imageHandl = 'image';
+            }
             
             //$result - article Id
-            $id = $modelArticle->add($title, $content, $author, $topic, $date, $image);
-            //send to Service
-            $result = \src\components\api\instances\ClientJsonRpc::sendMessageId($id, "addArticle");
-            if (isset($result)){
-                $message = "Статья успешно добавлена";
-            }else {
+            $id = $modelArticle->add($title, $content, $author, $topic, $date, $imageHandl);
+            if ($id){
+                //send to Service
+                $result = \src\components\api\instances\ClientJsonRpc::sendMessageId($id, "addArticle");
+                if (isset($result)){
+                    $message = "Статья успешно добавлена";
+                }else {
+                    $message = "Ошибка добавления статьи";
+                }
+            }else{
                 $message = "Ошибка добавления статьи";
             }
         }
@@ -124,10 +129,25 @@ class ArticleController
             $author = $_POST['author'];
             $topic = $_POST['topic'];
             $content = $_POST['content'];
-            $image = 'image';
+            $image = $_FILES['image'];
             $date = date('Y-m-d', time());
+
+            if (empty($image['error'])){
+                $imageName = $image['name'];
+                $imageType = $image['type'];
+                $imagePath = $image['tmp_name'];
+                $imageError = $image['error'];
+                $imageSize = $image['size'];
+
+                $imageHandl = new src\components\loader\LoaderHandler(
+                        new \src\components\loader\LoaderEntity($imageName, $imageType, $imagePath)
+                        );
+                $imageHandl = $imageHandl->save();
+            }else {
+                $imageHandl = 'image';
+            }
             
-            $result = $articleObj->update($title, $content, $author, $topic, $date, $image);
+            $result = $articleObj->update($title, $content, $author, $topic, $date, $imageHandl);
             
             \src\components\api\instances\ClientJsonRpc::sendMessageId($id, 'updateArticle');
             if (isset($result)){

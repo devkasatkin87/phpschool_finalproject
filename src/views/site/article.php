@@ -20,24 +20,24 @@
         </div>
         <?php if(src\models\User::checkAdmin()): ?>
         <div class="row">
-            <a href="/article/controll/update/<?= $article['id'];?>" class="btn btn-outline-secondary">Update article</a>
-            <a href="/article/controll/delete/<?= $article['id'];?>" class=" ml-2 btn btn-outline-secondary">Delete article</a>
+            <a href="/article/controll/update/<?= $article['id'];?>" class="btn btn-outline-secondary">Редактировать статью</a>
+            <a href="/article/controll/delete/<?= $article['id'];?>" class=" ml-2 btn btn-outline-secondary">Удалить статью</a>
         </div>
         <?php endif; ?>
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
                     <div class="serviceData">
-                        <div class="category">Topic: <?= $topic; ?></div>
-                        <div class="date">date of publication of the article: <?= $article['date_published']; ?></div>
-                        <div class="author">By: <?= $author; ?></div>
-                        <div class="views">Views: <i  id="article_views"><?= $article['views'];?></i></div>
+                        <div class="category"><b>Тема:</b> <?= $topic; ?></div>
+                        <div class="date"><b>Дата публикации: </b><?= $article['date_published']; ?></div>
+                        <div class="author"><b>Автор: </b><?= $author; ?></div>
+                        <div class="views"><b>Просмотры: </b><i  id="article_views"><?= $article['views'];?></i></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="content">
                         <div class="images">
-                            <img src="/<?=$article['img'];?>" alt="picture">
+                            <img src="/<?=$article['img'];?>" alt="picture" style="width: 300px">
                         </div>
                         <div class="text"><?= $article['content']; ?></div>
                     </div>
@@ -46,7 +46,7 @@
             <div class="col-md-3">
                 <div class="top-articles">
                     <div class="title  text-center">
-                        <h4>Top 10 of articles:</h4>
+                        <h4>ТОП 10 статей:</h4>
                     </div>
                     <div class="row">
                         <div class="Topcontent" id="top10">

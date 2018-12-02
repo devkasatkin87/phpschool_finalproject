@@ -11,6 +11,7 @@ use src\components\router\RouterControl;
 use src\components\router\RouterEntity;
 
 define('ROOT', dirname('__FILE__'));
+ini_set('max_execution_time', 900);
 
 $sessionParams = require_once __DIR__.'/src/components/redis/storage/config.php';
 

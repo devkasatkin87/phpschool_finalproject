@@ -18,7 +18,7 @@ class GenerateController
         
         $faker = Factory::create();
         
-          $resultDbTopics = $this->setArticlesToDb($db, $faker);  
+//          $resultDbTopics = $this->setArticlesToDb($db, $faker);  
 //        $resultDbAuthors = $this->setAuthorsToDb($db, $faker);
 //        $resultDbTopics = $this->setTopicsToDb($db, $faker);
         echo "The Database has been generating!";
@@ -27,7 +27,19 @@ class GenerateController
 
     }
     
-    private function setArticlesToDb ($db, $faker) : bool
+    public function actionSync()
+    {
+        Db::connection();
+        
+        $modelArticle = new \src\models\Articles();
+        
+        $datas = $modelArticle->getIdsAndViews();
+        
+        $result = \src\components\api\instances\ClientJsonRpc::sendMessageArray($datas, "sync");
+        
+    }
+
+        private function setArticlesToDb ($db, $faker) : bool
     {
         
         if (is_object($db)){
@@ -107,7 +119,8 @@ class GenerateController
     }
     
     // Find a randomDate between $start_date and $end_date
-    private function randomDate($start_date, $end_date) {
+    private function randomDate($start_date, $end_date) 
+    {
         // Convert to timetamps
         $min = strtotime($start_date);
         $max = strtotime($end_date);

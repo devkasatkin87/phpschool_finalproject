@@ -187,10 +187,12 @@ class Articles extends Model
                         'author_id' => $authorId,
                         'topic_id' => $topic,
             ]);
+            return $article->id;
         } else {
+            return false;
         }
         
-        return $article->id;
+
     }
     
     public function updateViews(int $id, int $views)
@@ -320,6 +322,22 @@ class Articles extends Model
         $list = $this->parseArrayOfDbObj($objs);
         //var_dump($list);die;
         return $list;
+    }
+    
+    public function getIdsAndViews() : array
+    {
+        $conditions = [
+            'select' => 'id, views'
+            ];
+        
+        $objs = self::find('all', $conditions);
+        
+        $list = $this->parseArrayOfDbObj($objs);
+        
+        //var_dump($list);die;
+        
+        return $list;
+        
     }
     
 }

@@ -11,6 +11,7 @@ return [
     'article/controll' => 'article/controll', //actionControll ArticleController 
     'article/create' => 'article/create', //actionCreate ArticleController
     'article/([0-9]+)' => 'article/view/$1', //actionView ArticleController
+    'generate/sync' => 'generate/sync', //actionSync GenerateController
     'generate' => 'generate/index', //actionIndex GenerateController
     '' => 'site/index', //actionIndex SiteController
 ];

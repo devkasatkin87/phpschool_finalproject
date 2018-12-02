@@ -38,10 +38,10 @@ class LoaderHandler
         // Сократим .jpeg до .jpg
         $format = str_replace('jpeg', 'jpg', $extension);
         $newPath = ROOT . '/web/images/' . $name . $format;
+        $shortPath = $name . $format;
         // Переместим картинку с новым именем и расширением в папку /pics
         if ($res = move_uploaded_file($this->image->getPath(), $newPath)) {
-            var_dump($res);
-            return $newPath;
+            return $shortPath;
         }else {
             $message = "При сохранении произошла ошибка";
             return $message;
@@ -109,7 +109,6 @@ class LoaderHandler
             // Выведем название ошибки
            return $outputMessage;
         }
-        echo "no error";
         // Создадим ресурс FileInfo
         $fi = finfo_open(FILEINFO_MIME_TYPE);
         // Получим MIME-тип
