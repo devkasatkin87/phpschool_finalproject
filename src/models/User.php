@@ -46,8 +46,11 @@ class User extends Model
                 ];
 
             $user = self::first('all', $conditions);
+            if ($user == null){
+                return false;
+            }
             $user = $user->attributes();
-            if ($user == null || !(password_verify($password, $user['password']))){
+            if (!(password_verify($password, $user['password']))){
                 return false;
             }else{
                 return $user;

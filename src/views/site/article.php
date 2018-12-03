@@ -31,7 +31,7 @@
                         <div class="category"><b>Тема:</b> <?= $topic; ?></div>
                         <div class="date"><b>Дата публикации: </b><?= $article['date_published']; ?></div>
                         <div class="author"><b>Автор: </b><?= $author; ?></div>
-                        <div class="views"><b>Просмотры: </b><i  id="article_views"><?= $article['views'];?></i></div>
+                        <div class="views"><b>Просмотры: </b><i  id="article_views"><?= $article['views']+1;?></i></div>
                     </div>
                 </div>
                 <div class="row">

@@ -46,7 +46,7 @@ class GenerateController
             
             $sql = ("INSERT INTO articles (title, date_published, content, img, views, topic_id, author_id) VALUES (:title, :date, :content, :img, :views, :topic_id, :author_id)");
             
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 5000; $i++) {
 
                 $stm = $db->prepare($sql);
                 
